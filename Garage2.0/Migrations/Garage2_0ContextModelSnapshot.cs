@@ -50,8 +50,8 @@ namespace Garage2._0.Migrations
                         .HasMaxLength(6)
                         .HasColumnType("nvarchar(6)");
 
-                    b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -67,7 +67,7 @@ namespace Garage2._0.Migrations
                             Model = "2",
                             NrOfWheels = 4,
                             RegNr = "ABC123",
-                            Type = "Car"
+                            Type = 2
                         },
                         new
                         {
@@ -78,7 +78,7 @@ namespace Garage2._0.Migrations
                             Model = "2",
                             NrOfWheels = 4,
                             RegNr = "DEF234",
-                            Type = "Car"
+                            Type = 0
                         },
                         new
                         {
@@ -89,7 +89,7 @@ namespace Garage2._0.Migrations
                             Model = "2",
                             NrOfWheels = 4,
                             RegNr = "GHI345",
-                            Type = "Car"
+                            Type = 4
                         },
                         new
                         {
@@ -100,7 +100,7 @@ namespace Garage2._0.Migrations
                             Model = "2",
                             NrOfWheels = 4,
                             RegNr = "JKL456",
-                            Type = "Car"
+                            Type = 2
                         });
                 });
 #pragma warning restore 612, 618

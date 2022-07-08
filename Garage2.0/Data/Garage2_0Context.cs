@@ -21,10 +21,10 @@ namespace Garage2._0.Data
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<ParkedVehicle>().HasData(
-              new ParkedVehicle { Id = 1, Type = "Car", RegNr = "ABC123", Color = "Red", Brand = "Ford", Model = "2", NrOfWheels = 4, ArrivalTime = DateTime.Parse("1995-03-20") },
-              new ParkedVehicle { Id = 2, Type = "Car", RegNr = "DEF234", Color = "Blue", Brand = "Ford", Model = "2", NrOfWheels = 4, ArrivalTime = DateTime.Parse("1995-03-20") },
-              new ParkedVehicle { Id = 3, Type = "Car", RegNr = "GHI345", Color = "Green", Brand = "Ford", Model = "2", NrOfWheels = 4, ArrivalTime = DateTime.Parse("1995-03-20") },
-              new ParkedVehicle { Id = 4, Type = "Car", RegNr = "JKL456", Color = "Yellow", Brand = "Ford", Model = "2", NrOfWheels = 4, ArrivalTime = DateTime.Parse("1995-03-20") }
+              new ParkedVehicle { Id = 1, Type = VehicleType.Motorcycle, RegNr = "ABC123", Color = "Red", Brand = "Ford", Model = "2", NrOfWheels = 4, ArrivalTime = DateTime.Parse("1995-03-20") },
+              new ParkedVehicle { Id = 2, Type = VehicleType.Car, RegNr = "DEF234", Color = "Blue", Brand = "Ford", Model = "2", NrOfWheels = 4, ArrivalTime = DateTime.Parse("1995-03-20") },
+              new ParkedVehicle { Id = 3, Type = VehicleType.Boat, RegNr = "GHI345", Color = "Green", Brand = "Ford", Model = "2", NrOfWheels = 4, ArrivalTime = DateTime.Parse("1995-03-20") },
+              new ParkedVehicle { Id = 4, Type = VehicleType.Motorcycle, RegNr = "JKL456", Color = "Yellow", Brand = "Ford", Model = "2", NrOfWheels = 4, ArrivalTime = DateTime.Parse("1995-03-20") }
 
             );
         }

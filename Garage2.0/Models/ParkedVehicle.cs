@@ -8,7 +8,7 @@ namespace Garage2._0.Models
 
         public int Id { get; set; }
 
-        public string Type { get; set; }
+        public VehicleType Type { get; set; }
 
         [Required]
         [StringLength(6)]

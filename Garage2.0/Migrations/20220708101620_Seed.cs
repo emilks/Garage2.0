@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Garage2._0.Migrations
 {
-    public partial class VehicleDatabase : Migration
+    public partial class Seed : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,7 +15,7 @@ namespace Garage2._0.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Type = table.Column<int>(type: "int", nullable: false),
                     RegNr = table.Column<string>(type: "nvarchar(6)", maxLength: 6, nullable: false),
                     Color = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Brand = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -26,6 +26,17 @@ namespace Garage2._0.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ParkedVehicle", x => x.Id);
+                });
+
+            migrationBuilder.InsertData(
+                table: "ParkedVehicle",
+                columns: new[] { "Id", "ArrivalTime", "Brand", "Color", "Model", "NrOfWheels", "RegNr", "Type" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(1995, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ford", "Red", "2", 4, "ABC123", 2 },
+                    { 2, new DateTime(1995, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ford", "Blue", "2", 4, "DEF234", 0 },
+                    { 3, new DateTime(1995, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ford", "Green", "2", 4, "GHI345", 4 },
+                    { 4, new DateTime(1995, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ford", "Yellow", "2", 4, "JKL456", 2 }
                 });
         }
 

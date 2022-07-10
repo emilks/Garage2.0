@@ -33,10 +33,10 @@ namespace Garage2._0.Migrations
                 columns: new[] { "Id", "ArrivalTime", "Brand", "Color", "Model", "NrOfWheels", "RegNr", "Type" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(1995, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ford", "Red", "2", 4, "ABC123", 2 },
-                    { 2, new DateTime(1995, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ford", "Blue", "2", 4, "DEF234", 0 },
-                    { 3, new DateTime(1995, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ford", "Green", "2", 4, "GHI345", 4 },
-                    { 4, new DateTime(1995, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ford", "Yellow", "2", 4, "JKL456", 2 }
+                    { 1, new DateTime(), "Ford", "Red", "2", 4, "ABC123", 2 },
+                    { 2, new DateTime(), "Ford", "Blue", "2", 4, "DEF234", 0 },
+                    { 3, new DateTime(), "Ford", "Green", "2", 4, "GHI345", 4 },
+                    { 4, new DateTime(), "Ford", "Yellow", "2", 4, "JKL456", 2 }
                 });
         }
 

@@ -7,16 +7,29 @@ namespace Garage2._0.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private object db;
+        private object _context;
+
+        public object context { get; private set; }
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
+        //automatic time alg
+        //public IActionResult Index()
+        //{
+        //    Statistics stats = new Statistics();
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+        //    var dates = context.Select(v => v.Date);
+        //    DateTime now = DateTime.Now;
+
+        //    foreach (var d in dates)
+        //    {
+        //        stats.Time += now - d;
+        //    }
+        //    return View();
+        //}
 
         public IActionResult Privacy()
         {

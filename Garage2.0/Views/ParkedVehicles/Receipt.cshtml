@@ -6,7 +6,7 @@
 @model Garage2._0.Models.ReceiptViewModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Receipt";
 }
 
 <h1>Details</h1>
@@ -38,6 +38,18 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.LeaveTime)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TimeParked)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TimeParked)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Price)
         </dd>
     </dl>
 </div>

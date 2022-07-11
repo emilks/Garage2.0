@@ -1,4 +1,5 @@
-﻿namespace Garage2._0.Models
+﻿
+namespace Garage2._0.Models
 {
     public class ReceiptViewModel
     {
@@ -10,8 +11,8 @@
 
         public DateTime LeaveTime { get; set; }
 
-        public DateTime TimeParked { get; set; }
+        public double TimeParked { get; set; }
 
-        public int Price { get; set; }
+        public double Price { get; set; }
     }
 }

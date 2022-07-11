@@ -22,9 +22,36 @@ namespace Garage2._0.Controllers
         // GET: ParkedVehicles
         public async Task<IActionResult> Index()
         {
-              return _context.ParkedVehicle != null ? 
-                          View(await _context.ParkedVehicle.ToListAsync()) :
-                          Problem("Entity set 'Garage2_0Context.ParkedVehicle'  is null.");
+
+            var model = _context.ParkedVehicle.Select(v => new IndexViewModel
+            {
+                ArrivalTime = v.ArrivalTime,
+                Type = v.Type,
+                RegNr = v.RegNr,
+                Id = v.Id,
+                Color = v.Color,
+                Brand = v.Brand,
+                Model = v.Model,
+                NrOfWheels= v.NrOfWheels
+
+
+            });
+            return View(await model.ToListAsync());
+            Problem("Entity set 'Garage2_0Context.ParkedVehicle'  is null.");
+        }
+        public async Task<IActionResult> Overview()
+        {
+
+            var model = _context.ParkedVehicle.Select(v => new OverviewViewModel
+            {
+                ArrivalTime = v.ArrivalTime,
+                Type = v.Type,
+                RegNr = v.RegNr,
+                Id = v.Id
+            });
+
+            return View(await model.ToListAsync());
+        
         }
 
         // GET: ParkedVehicles/Details/5

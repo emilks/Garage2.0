@@ -102,6 +102,19 @@ namespace Garage2._0.Controllers
             return View(parkedVehicle);
         }
 
+        //Remote validation to check if regNr is already used
+        [AcceptVerbs("GET", "POST")]
+        public IActionResult IsRegNrUsed(string RegNr, int Id)
+        {
+            var regNr = _context.ParkedVehicle.FirstOrDefault(m => m.RegNr == RegNr);
+            if(regNr == null || regNr.Id == Id)
+            {
+                return Json(true);
+            }
+
+            return Json(false);
+        }
+
         // POST: ParkedVehicles/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.

@@ -53,9 +53,7 @@ namespace Garage2._0.Controllers
             });
 
             return View(await model.ToListAsync());
-            //return _context.ParkedVehicle != null ?
-            //            View(await _context.ParkedVehicle.ToListAsync()) :
-            //            Problem("Entity set 'Garage2_0Context.ParkedVehicle'  is null.");
+        
         }
 
         // GET: ParkedVehicles/Details/5
@@ -79,6 +77,7 @@ namespace Garage2._0.Controllers
         // GET: ParkedVehicles/Create
         public IActionResult Create()
         {
+
             return View();
         }
 
@@ -91,6 +90,8 @@ namespace Garage2._0.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                parkedVehicle.ArrivalTime = DateTime.Now;//automatic time
                 _context.Add(parkedVehicle);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -99,6 +100,22 @@ namespace Garage2._0.Controllers
             }
             
             return View(parkedVehicle);
+
+        }
+        
+ 
+       
+
+        public async Task<IActionResult> Filter(string title)
+        {
+            var model = string.IsNullOrWhiteSpace(title) ?
+                                    _context.ParkedVehicle :
+                                    _context.ParkedVehicle!.Where(m => m.RegNr!.StartsWith(title));
+
+
+
+            return View(nameof(Index), await model!.ToListAsync());
+
         }
 
         // GET: ParkedVehicles/Edit/5
@@ -115,6 +132,19 @@ namespace Garage2._0.Controllers
                 return NotFound();
             }
             return View(parkedVehicle);
+        }
+
+        //Remote validation to check if regNr is already used
+        [AcceptVerbs("GET", "POST")]
+        public IActionResult IsRegNrUsed(string RegNr, int Id)
+        {
+            var regNr = _context.ParkedVehicle.FirstOrDefault(m => m.RegNr == RegNr);
+            if(regNr == null || regNr.Id == Id)
+            {
+                return Json(true);
+            }
+
+            return Json(false);
         }
 
         // POST: ParkedVehicles/Edit/5

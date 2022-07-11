@@ -61,7 +61,7 @@ namespace Garage2._0.Migrations
                         new
                         {
                             Id = 1,
-                            ArrivalTime = new DateTime(1995, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ArrivalTime =  DateTime.Now, //Automatic time
                             Brand = "Ford",
                             Color = "Red",
                             Model = "2",
@@ -72,7 +72,7 @@ namespace Garage2._0.Migrations
                         new
                         {
                             Id = 2,
-                            ArrivalTime = new DateTime(1995, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ArrivalTime = DateTime.Now, //Automatic time
                             Brand = "Ford",
                             Color = "Blue",
                             Model = "2",
@@ -83,7 +83,7 @@ namespace Garage2._0.Migrations
                         new
                         {
                             Id = 3,
-                            ArrivalTime = new DateTime(1995, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ArrivalTime = DateTime.Now, //Automatic time
                             Brand = "Ford",
                             Color = "Green",
                             Model = "2",
@@ -94,7 +94,7 @@ namespace Garage2._0.Migrations
                         new
                         {
                             Id = 4,
-                            ArrivalTime = new DateTime(1995, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ArrivalTime = DateTime.Now, //Automatic time
                             Brand = "Ford",
                             Color = "Yellow",
                             Model = "2",

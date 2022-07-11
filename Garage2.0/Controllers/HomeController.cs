@@ -7,6 +7,9 @@ namespace Garage2._0.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+       
+
+        
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -17,7 +20,7 @@ namespace Garage2._0.Controllers
         {
             return View();
         }
-
+     
         public IActionResult Privacy()
         {
             return View();

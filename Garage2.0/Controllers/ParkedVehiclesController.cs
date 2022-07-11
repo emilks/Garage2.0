@@ -74,6 +74,18 @@ namespace Garage2._0.Controllers
  
        
 
+        public async Task<IActionResult> Filter(string title)
+        {
+            var model = string.IsNullOrWhiteSpace(title) ?
+                                    _context.ParkedVehicle :
+                                    _context.ParkedVehicle!.Where(m => m.RegNr!.StartsWith(title));
+
+
+
+            return View(nameof(Index), await model!.ToListAsync());
+
+        }
+
         // GET: ParkedVehicles/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

@@ -16,3 +16,14 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+a:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
+a:active {
+    text-decoration-line:underline;
+}
+a::after{
+    text-decoration-line: underline;
+}

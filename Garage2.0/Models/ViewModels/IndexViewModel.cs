@@ -1,16 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Garage2._0.Models
+namespace Garage2._0.Models.ViewModels
 {
-#nullable disable
-    public class ParkedVehicle
+    public class IndexViewModel
     {
-
         public int Id { get; set; }
+
         [Display(Name = "Type of Vehicle")]
         public VehicleType Type { get; set; }
 
-        [Required(ErrorMessage = "6 characters is required")]
+        [Required]
         [StringLength(6), MinLength(6)]
         [Display(Name = "Registration Number")]
         public string RegNr { get; set; }
@@ -20,9 +19,11 @@ namespace Garage2._0.Models
         public string Brand { get; set; }
 
         public string Model { get; set; }
+
         [Display(Name = "Number of Wheels")]
         public int NrOfWheels { get; set; }
 
+        [Display(Name = "Arrival Time")]
         public DateTime ArrivalTime { get; set; }
     }
 }

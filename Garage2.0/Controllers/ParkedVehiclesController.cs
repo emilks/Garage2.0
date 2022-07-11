@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Garage2._0.Data;
 using Garage2._0.Models;
 using Garage2._0.Models.ViewModel;
+using Garage2._0.Models.ViewModels;
 
 namespace Garage2._0.Controllers
 {
@@ -23,9 +24,22 @@ namespace Garage2._0.Controllers
         // GET: ParkedVehicles
         public async Task<IActionResult> Index()
         {
-              return _context.ParkedVehicle != null ? 
-                          View(await _context.ParkedVehicle.ToListAsync()) :
-                          Problem("Entity set 'Garage2_0Context.ParkedVehicle'  is null.");
+
+            var model = _context.ParkedVehicle.Select(v => new IndexViewModel
+            {
+                ArrivalTime = v.ArrivalTime,
+                Type = v.Type,
+                RegNr = v.RegNr,
+                Id = v.Id,
+                Color = v.Color,
+                Brand = v.Brand,
+                Model = v.Model,
+                NrOfWheels= v.NrOfWheels
+
+
+            });
+            return View(await model.ToListAsync());
+            Problem("Entity set 'Garage2_0Context.ParkedVehicle'  is null.");
         }
         public async Task<IActionResult> Overview()
         {
@@ -80,7 +94,10 @@ namespace Garage2._0.Controllers
                 _context.Add(parkedVehicle);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
+                
+                
             }
+            
             return View(parkedVehicle);
         }
 

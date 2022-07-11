@@ -23,6 +23,8 @@ namespace Garage2._0.Models
         public int NrOfWheels { get; set; }
 
         public DateTime ArrivalTime { get; set; }
-        public DateTime Date { get; internal set; }
+       
+
+        
     }
 }

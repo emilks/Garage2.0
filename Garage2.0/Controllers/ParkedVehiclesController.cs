@@ -48,6 +48,7 @@ namespace Garage2._0.Controllers
         // GET: ParkedVehicles/Create
         public IActionResult Create()
         {
+
             return View();
         }
 
@@ -60,13 +61,18 @@ namespace Garage2._0.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 parkedVehicle.ArrivalTime = DateTime.Now;//automatic time
                 _context.Add(parkedVehicle);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(parkedVehicle);
+
         }
+        
+ 
+       
 
         // GET: ParkedVehicles/Edit/5
         public async Task<IActionResult> Edit(int? id)

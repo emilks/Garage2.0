@@ -85,15 +85,15 @@ namespace Garage2._0.Controllers
 
         //Remote validation to check if regNr is already used
         [AcceptVerbs("GET", "POST")]
-        public IActionResult IsRegNrUsed(string RegNr)
+        public IActionResult IsRegNrUsed(string RegNr, int Id)
         {
-            var regNr = _context.ParkedVehicle.Any(m => m.RegNr == RegNr);
-            if (regNr)
+            var regNr = _context.ParkedVehicle.FirstOrDefault(m => m.RegNr == RegNr);
+            if(regNr == null || regNr.Id == Id)
             {
-                return Json(false);
+                return Json(true);
             }
 
-            return Json(true);
+            return Json(false);
         }
 
         // POST: ParkedVehicles/Edit/5

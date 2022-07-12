@@ -1,34 +1,14 @@
-﻿
-@*@model IEnumerable<IndexViewModel>*@
-@model IEnumerable<ParkedVehicle>
-@*//Vi behöver ParkedVehicle för att få det att funka med sökningen*@
+﻿@model IEnumerable<Garage2._0.Models.ParkedVehicle>
+
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>List of all Vehicles</h1>
+<h1>Index</h1>
 
-
-<form>
-    <div class="input-group mb-3 mt-3">
-        <input type="text" class="form-control" name="title" placeholder="Search on Registration Number..." />
-        
-        <div class="input-group-append">
-            <button asp-action="Filter" asp-controller="ParkedVehicles" type="submit" class="btn btn-primary ms-2"><i class="fa fa-search">&emsp;Search</i></button>
-        </div>
-         
-        <div class="input-group-append ms-5">
-            <select class="form-control" name="Type" asp-items="@Html.GetEnumSelectList<VehicleType>()">
-                <option selected="selected" value="">Please select</option>
-            </select>
-        </div>
-        <div class="input-group-append">
-            <button asp-action="FilterType" asp-controller="ParkedVehicles" type="submit" class="btn btn-primary ms-2"><i class="fa fa-search">&emsp;Choose</i></button>
-            </div>
-    </div>
-</form>
-
-
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
 <table class="table">
     <thead>
         <tr>

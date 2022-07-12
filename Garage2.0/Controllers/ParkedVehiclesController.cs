@@ -26,7 +26,7 @@ namespace Garage2._0.Controllers
         public async Task<IActionResult> Index()
         {
 
-            var model = _context.ParkedVehicle.Select(v => new ParkedVehicle
+            var model = _context.ParkedVehicle!.Select(v => new ParkedVehicle
             {
                 ArrivalTime = v.ArrivalTime,
                 Type = v.Type,
@@ -40,12 +40,11 @@ namespace Garage2._0.Controllers
 
             });
             return View(await model.ToListAsync());
-            Problem("Entity set 'Garage2_0Context.ParkedVehicle'  is null.");
         }
         public async Task<IActionResult> Overview()
         {
 
-            var model = _context.ParkedVehicle.Select(v => new OverviewViewModel
+            var model = _context.ParkedVehicle!.Select(v => new OverviewViewModel
             {
                 ArrivalTime = v.ArrivalTime,
                 Type = v.Type,
@@ -114,7 +113,7 @@ namespace Garage2._0.Controllers
         public async Task<IActionResult> FilterType(VehicleType Type)
         {
            
-            var model = _context.ParkedVehicle.Where(m => (int)m.Type == (int)Type);
+            var model = _context.ParkedVehicle!.Where(m => (int)m.Type == (int)Type);
           
 
 
@@ -154,7 +153,7 @@ namespace Garage2._0.Controllers
         [AcceptVerbs("GET", "POST")]
         public IActionResult IsRegNrUsed(string RegNr, int Id)
         {
-            var regNr = _context.ParkedVehicle.FirstOrDefault(m => m.RegNr == RegNr);
+            var regNr = _context.ParkedVehicle!.FirstOrDefault(m => m.RegNr == RegNr);
             if(regNr == null || regNr.Id == Id)
             {
                 return Json(true);

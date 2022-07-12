@@ -1,5 +1,6 @@
 ﻿namespace Garage2._0.Models
 {
+#nullable disable
     public class ReceiptViewModel
     {
         public VehicleType Type { get; set; }

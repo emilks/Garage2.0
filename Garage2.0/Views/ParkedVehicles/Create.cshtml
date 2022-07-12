@@ -3,10 +3,11 @@
 @{
     ViewData["Title"] = "Create";
 }
+ <link rel="stylesheet" href="~/Design/site.css" asp-append-version="true" />
+<body>
+<h1 class="text-center">Welcome to Our Garage</h1>
 
-<h1>Welcome to The Garage</h1>
-
-<h4>Price: $10 per hour</h4>
+<h4 class="text-center">Price: $10 per hour</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -44,16 +45,17 @@
             </div>
            
             <div class="form-group">
-                <input type="submit" value="Park" class="btn btn-primary mt-2" />
+                <input type="submit" value="Park your car" class="btn btn-primary mt-2" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">To List</a>
+    <a asp-action="Index">Back To List</a>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+</body>

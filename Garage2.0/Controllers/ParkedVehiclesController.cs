@@ -184,10 +184,33 @@ namespace Garage2._0.Controllers
             }
             
             await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
             return RedirectToAction(nameof(Receipt), parkedVehicle);
         }
 
 
+        [HttpPost, ActionName("Receipt")]
+        public IActionResult Receipt(int id)
+        {
+            if (_context.ParkedVehicle == null)
+            {
+                return Problem("Entity set 'Garage2_0Context.ParkedVehicle'  is null.");
+            }
+            var parkedVehicle =  _context.ParkedVehicle.FirstOrDefault(m => m.Id == id);
+
+            var viewModel = new ReceiptViewModel();
+            viewModel.Type = parkedVehicle.Type;
+            viewModel.RegNr = parkedVehicle.RegNr;
+            viewModel.ArrivalTime = parkedVehicle.ArrivalTime;
+            viewModel.LeaveTime = DateTime.Now;
+            viewModel.TimeParked = Math.Round((viewModel.LeaveTime - viewModel.ArrivalTime).TotalHours, 2);
+            viewModel.Price = Math.Round(viewModel.TimeParked * 10, 1);
+
+
+            return View(viewModel);
+        }
+
+/*        [HttpPost, ActionName("Receipt")]
         public IActionResult Receipt(ParkedVehicle parkedVehicle)
         {
             var viewModel = new ReceiptViewModel();
@@ -197,20 +220,10 @@ namespace Garage2._0.Controllers
             viewModel.LeaveTime = DateTime.Now;
             viewModel.TimeParked = (viewModel.LeaveTime - viewModel.ArrivalTime).TotalHours;
             viewModel.Price = viewModel.TimeParked*10;
-
-
-
-            /*var viewModel = await _context.Product.Select(e => new ProductViewModel
-            {
-                //Id  = e.Id,
-                Name = e.Name,
-                Price = e.Price,
-                Count = e.Count,
-                InventoryValue = e.Price * e.Count
-            }).ToListAsync();*/
+            
 
             return View(viewModel);
-        }
+        }*/
 
         private bool ParkedVehicleExists(int id)
         {

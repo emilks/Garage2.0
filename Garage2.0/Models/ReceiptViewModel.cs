@@ -1,10 +1,13 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
+
 namespace Garage2._0.Models
 {
     public class ReceiptViewModel
     {
         public VehicleType Type { get; set; }
 
+        [Display(Name="Registration Number")]
         public string RegNr { get; set; }
 
         public DateTime ArrivalTime { get; set; }

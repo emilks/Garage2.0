@@ -60,4 +60,10 @@
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
     </form>
+    <form asp-action="Receipt">
+        <input type="hidden" asp-for="Id" />
+        <!--<input type="hidden" asp-for="RegNr" />-->
+        <input type="submit" value="Receipt" class="btn btn-warning" formtarget="_blank"/> |
+        <a asp-action="Index">Back to List</a>
+    </form>
 </div>

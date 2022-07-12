@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Garage2._0.Data;
 using Garage2._0.Models;
 using Garage2._0.Models.ViewModel;
-using Garage2._0.Models.ViewModels;
+
 
 namespace Garage2._0.Controllers
 {
@@ -22,10 +22,11 @@ namespace Garage2._0.Controllers
         }
 
         // GET: ParkedVehicles
+  
         public async Task<IActionResult> Index()
         {
 
-            var model = _context.ParkedVehicle.Select(v => new IndexViewModel
+            var model = _context.ParkedVehicle.Select(v => new ParkedVehicle
             {
                 ArrivalTime = v.ArrivalTime,
                 Type = v.Type,
@@ -34,7 +35,7 @@ namespace Garage2._0.Controllers
                 Color = v.Color,
                 Brand = v.Brand,
                 Model = v.Model,
-                NrOfWheels= v.NrOfWheels
+                NrOfWheels = v.NrOfWheels
 
 
             });
@@ -80,6 +81,12 @@ namespace Garage2._0.Controllers
 
             return View();
         }
+        // GET: ParkedVehicles/Search
+        public IActionResult Search()
+        {
+
+            return View();
+        }
 
         // POST: ParkedVehicles/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -103,8 +110,17 @@ namespace Garage2._0.Controllers
 
         }
         
- 
-       
+        //Search for Type of Vehicle
+        public async Task<IActionResult> FilterType(VehicleType Type)
+        {
+           
+            var model = _context.ParkedVehicle.Where(m => (int)m.Type == (int)Type);
+          
+
+
+            return View(nameof(Index), await model.ToListAsync());
+        }
+       //Search for RegNr
 
         public async Task<IActionResult> Filter(string title)
         {

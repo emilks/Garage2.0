@@ -9,7 +9,6 @@ using Garage2._0.Data;
 using Garage2._0.Models;
 using Garage2._0.Models.ViewModel;
 
-
 namespace Garage2._0.Controllers
 {
     public class ParkedVehiclesController : Controller
@@ -22,7 +21,6 @@ namespace Garage2._0.Controllers
         }
 
         // GET: ParkedVehicles
-  
         public async Task<IActionResult> Index()
         {
 
@@ -40,10 +38,14 @@ namespace Garage2._0.Controllers
 
             });
             return View(await model.ToListAsync());
+            Problem("Entity set 'Garage2_0Context.ParkedVehicle'  is null.");
+//              return _context.ParkedVehicle != null ? 
+//                          View(await _context.ParkedVehicle.ToListAsync()) :
+//                          Problem("Entity set 'Garage2_0Context.ParkedVehicle'  is null.");
         }
+
         public async Task<IActionResult> Overview()
         {
-
             var model = _context.ParkedVehicle!.Select(v => new OverviewViewModel
             {
                 ArrivalTime = v.ArrivalTime,
@@ -53,8 +55,8 @@ namespace Garage2._0.Controllers
             });
 
             return View(await model.ToListAsync());
-        
-        }
+
+    }
 
         // GET: ParkedVehicles/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -77,13 +79,6 @@ namespace Garage2._0.Controllers
         // GET: ParkedVehicles/Create
         public IActionResult Create()
         {
-
-            return View();
-        }
-        // GET: ParkedVehicles/Search
-        public IActionResult Search()
-        {
-
             return View();
         }
 
@@ -96,15 +91,11 @@ namespace Garage2._0.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 parkedVehicle.ArrivalTime = DateTime.Now;//automatic time
                 _context.Add(parkedVehicle);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-                
-                
             }
-            
             return View(parkedVehicle);
 
         }
@@ -232,6 +223,35 @@ namespace Garage2._0.Controllers
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+
+        [HttpPost, ActionName("Receipt")]
+        public IActionResult Receipt(int id)
+        {
+            if (_context.ParkedVehicle == null)
+            {
+                return Problem("Entity set 'Garage2_0Context.ParkedVehicle'  is null.");
+            }
+            var parkedVehicle =  _context.ParkedVehicle.FirstOrDefault(m => m.Id == id);
+
+            var viewModel = new ReceiptViewModel();
+            viewModel.Type = parkedVehicle.Type;
+            viewModel.RegNr = parkedVehicle.RegNr;
+            viewModel.ArrivalTime = parkedVehicle.ArrivalTime;
+            viewModel.LeaveTime = DateTime.Now;
+            viewModel.TimeParked = Math.Round((viewModel.LeaveTime - viewModel.ArrivalTime).TotalHours, 2);
+            viewModel.Price = Math.Round(viewModel.TimeParked * 10, 1);
+
+            //var parkedVehicle = _context.ParkedVehicle.FindAsync(id);
+            if (parkedVehicle != null)
+            {
+                _context.ParkedVehicle.Remove(parkedVehicle);
+            }
+
+            _context.SaveChangesAsync();
+
+            return View(viewModel);
         }
 
         private bool ParkedVehicleExists(int id)

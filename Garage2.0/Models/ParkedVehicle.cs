@@ -22,7 +22,9 @@ namespace Garage2._0.Models
         public string Brand { get; set; }
 
         public string Model { get; set; }
+
         [Display(Name = "Number of Wheels")]
+        [Range(0, double.MaxValue, ErrorMessage = "The value must be greater than 0")]
         public int NrOfWheels { get; set; }
 
         [Display(Name = "Arrival Time")]

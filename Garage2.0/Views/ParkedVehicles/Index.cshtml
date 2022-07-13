@@ -1,10 +1,10 @@
-﻿
-@*@model IEnumerable<IndexViewModel>*@
-@model IEnumerable<ParkedVehicle>
-@*//Vi behöver ParkedVehicle för att få det att funka med sökningen*@
+﻿@model IEnumerable<Garage2._0.Models.ParkedVehicle>
+
 @{
     ViewData["Title"] = "Index";
 }
+
+ <link rel="stylesheet" href="~/Design/site.css" asp-append-version="true" />
 
 <h1>List of all Vehicles</h1>
 
@@ -23,12 +23,10 @@
             </select>
         </div>
         <div class="input-group-append">
-            <button asp-action="FilterType" asp-controller="ParkedVehicles" type="submit" class="btn btn-primary ms-2"><i class="fa fa-search">&emsp;Choose</i></button>
+            <button asp-action="FilterType" asp-controller="ParkedVehicles" type="submit" class="btn btn-primary ms-2"><i class=" fa fa-check-square">&emsp;Choose</i></button>
             </div>
     </div>
 </form>
-
-
 <table class="table">
     <thead>
         <tr>

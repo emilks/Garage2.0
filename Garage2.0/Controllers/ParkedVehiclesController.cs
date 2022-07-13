@@ -39,18 +39,20 @@ namespace Garage2._0.Controllers
             });
             return View(await model.ToListAsync());
             Problem("Entity set 'Garage2_0Context.ParkedVehicle'  is null.");
-              return _context.ParkedVehicle != null ? 
-                          View(await _context.ParkedVehicle.ToListAsync()) :
-                          Problem("Entity set 'Garage2_0Context.ParkedVehicle'  is null.");
+//              return _context.ParkedVehicle != null ? 
+//                          View(await _context.ParkedVehicle.ToListAsync()) :
+//                          Problem("Entity set 'Garage2_0Context.ParkedVehicle'  is null.");
         }
-        public async Task<IActionResult> Overview(){ 
-        var model = _context.ParkedVehicle!.Select(v => new OverviewViewModel
+
+        public async Task<IActionResult> Overview()
         {
-            ArrivalTime = v.ArrivalTime,
-            Type = v.Type,
-            RegNr = v.RegNr,
-            Id = v.Id
-        });
+            var model = _context.ParkedVehicle!.Select(v => new OverviewViewModel
+            {
+                ArrivalTime = v.ArrivalTime,
+                Type = v.Type,
+                RegNr = v.RegNr,
+                Id = v.Id
+            });
 
             return View(await model.ToListAsync());
 

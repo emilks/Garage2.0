@@ -57,7 +57,31 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <input type="submit" value="Delete" onclick="showModel(); return false;" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
     </form>
 </div>
+ <!--kvito efter erbjudas-->
+           
+            <div   id="myModel" class="modal fade text-width:30%;" style="position:fixed" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2>Hi </h2>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div id="MyModalAlert" class="modal-body alert alert-success ">
+                          <h2> Do you want your receipt?</h2> 
+                        </div>
+                        <div class="modal-footer">
+                          
+                            <a  asp-action="Receipt" id="yes" class="btn btn-success">Yes</a>
+                            <a  asp-action="Index"  class="btn btn-danger">No</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+           
+            <!--slutet-->

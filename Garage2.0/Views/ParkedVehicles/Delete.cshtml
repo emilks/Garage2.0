@@ -60,6 +60,11 @@
         <input type="submit" value="Delete" onclick="showModel(); return false;" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
     </form>
+    <form asp-action="Receipt">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Receipt" class="btn btn-warning" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
 </div>
  <!--kvito efter erbjudas-->
            

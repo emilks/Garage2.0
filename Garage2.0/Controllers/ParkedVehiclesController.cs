@@ -94,6 +94,8 @@ namespace Garage2._0.Controllers
                 parkedVehicle.ArrivalTime = DateTime.Now;//automatic time
                 _context.Add(parkedVehicle);
                 await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "" + parkedVehicle.Type + "Vehicle Created Successfully ";
+
                 return RedirectToAction(nameof(Index));
             }
             return View(parkedVehicle);
@@ -137,6 +139,8 @@ namespace Garage2._0.Controllers
             {
                 return NotFound();
             }
+            TempData["SuccessMessage"] = "" + parkedVehicle.Type + " Vehicle Saved Successfully ";
+
             return View(parkedVehicle);
         }
 
@@ -222,6 +226,7 @@ namespace Garage2._0.Controllers
             }
             
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 

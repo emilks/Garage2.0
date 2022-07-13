@@ -52,13 +52,31 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+              <div   id="SuccessfulMessage" class="modal fade text-width:30%;" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2>Information </h2>
+                            <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                        </div>
+                        <div  class="modal-body alert alert-success ">
+                            <h2 id="MyModalAlert"> Do you want your receipt?</h2> 
+                        </div>
+                        <div class="modal-footer">
+                          <button onclick="Form.close()">Ok</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
             @RenderBody()
         </main>
     </div>
 
     <footer class="containerf" >
         
-        &copy; Lexicon|2022 - Garage2.0 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>|<a href="#"> Back on top</a>
+        &copy; Lexicon|2022 - Garage2.0 - Emil&Klara&Marlin&Enerida <a asp-area="" asp-controller="Home" asp-action="Privacy"></a>
        
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

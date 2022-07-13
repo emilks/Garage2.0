@@ -63,11 +63,14 @@ a::after{
 
 
 .containerf {
-    padding: 2.5rem 0;
+    padding: 10px;
     font-size: 17px;
     color: #333;
     text-align: center;
     background-color: #808080;
     border-top: .05rem solid #e5e5e5;
     margin-bottom: 0%;
+    position:fixed;
+    width:100%;
+    bottom:0;
 }

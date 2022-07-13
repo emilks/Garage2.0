@@ -58,8 +58,8 @@ namespace Garage2._0.Controllers
 
     }
 
-    // GET: ParkedVehicles/Details/5
-    public async Task<IActionResult> Details(int? id)
+        // GET: ParkedVehicles/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.ParkedVehicle == null)
             {
@@ -222,7 +222,6 @@ namespace Garage2._0.Controllers
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-            return RedirectToAction(nameof(Receipt), parkedVehicle);
         }
 
 
@@ -243,24 +242,16 @@ namespace Garage2._0.Controllers
             viewModel.TimeParked = Math.Round((viewModel.LeaveTime - viewModel.ArrivalTime).TotalHours, 2);
             viewModel.Price = Math.Round(viewModel.TimeParked * 10, 1);
 
+            //var parkedVehicle = _context.ParkedVehicle.FindAsync(id);
+            if (parkedVehicle != null)
+            {
+                _context.ParkedVehicle.Remove(parkedVehicle);
+            }
+
+            _context.SaveChangesAsync();
 
             return View(viewModel);
         }
-
-/*        [HttpPost, ActionName("Receipt")]
-        public IActionResult Receipt(ParkedVehicle parkedVehicle)
-        {
-            var viewModel = new ReceiptViewModel();
-            viewModel.Type = parkedVehicle.Type;
-            viewModel.RegNr = parkedVehicle.RegNr;
-            viewModel.ArrivalTime = parkedVehicle.ArrivalTime;
-            viewModel.LeaveTime = DateTime.Now;
-            viewModel.TimeParked = (viewModel.LeaveTime - viewModel.ArrivalTime).TotalHours;
-            viewModel.Price = viewModel.TimeParked*10;
-            
-
-            return View(viewModel);
-        }*/
 
         private bool ParkedVehicleExists(int id)
         {

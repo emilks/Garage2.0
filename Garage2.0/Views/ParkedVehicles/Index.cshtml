@@ -4,17 +4,19 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+ <link rel="stylesheet" href="~/Design/site.css" asp-append-version="true" />
 
-<p>
+<h1>List of all Vehicles</h1>
+
+@*<p>
     <a asp-action="Create">Create New</a>
-</p>
+</p>*@
 <form asp-action="Filter" asp-controller="ParkedVehicles" method="get">
     <div class="input-group mb-3">
-        <input type="text" class="form-control" name="title" placeholder="Search on title..." />
+        <input type="text" class="form-control" name="title" placeholder="Search for a vehicle..." />
       
         <div class="input-group-append">
-            <button type="submit" class="btn btn-primary"><i class="fa fa-search">&emsp;Search</i></button>
+            <button type="submit" class="btn btn-primary ms-2"><i class="fa fa-search">&emsp;Search </i></button>
         </div>
     </div>
 </form>

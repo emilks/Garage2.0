@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Garage2._0.Data;
 using Garage2._0.Models;
+using Garage2._0.Models.ViewModel;
 
 namespace Garage2._0.Controllers
 {
@@ -38,11 +39,13 @@ namespace Garage2._0.Controllers
             });
             return View(await model.ToListAsync());
             Problem("Entity set 'Garage2_0Context.ParkedVehicle'  is null.");
-              return _context.ParkedVehicle != null ? 
-                          View(await _context.ParkedVehicle.ToListAsync()) :
-                          Problem("Entity set 'Garage2_0Context.ParkedVehicle'  is null.");
+//              return _context.ParkedVehicle != null ? 
+//                          View(await _context.ParkedVehicle.ToListAsync()) :
+//                          Problem("Entity set 'Garage2_0Context.ParkedVehicle'  is null.");
         }
 
+        public async Task<IActionResult> Overview()
+        {
             var model = _context.ParkedVehicle!.Select(v => new OverviewViewModel
             {
                 ArrivalTime = v.ArrivalTime,

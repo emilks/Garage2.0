@@ -55,11 +55,12 @@
         </dd>
     </dl>
     
-    <form asp-action="Delete">
+    <!--<form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <input type="submit" value="Delete" class="btn btn-danger" onclick="return confirm('Are you aure you want to check out this vehicle from the garage?');" /> |
         <a asp-action="Index">Back to List</a>
-    </form>
+    </form>-->
+    <input type="button" value="Delete" class="btn btn-danger" onclick="deleteConfirm()" />
     <form asp-action="Receipt">
         <input type="hidden" asp-for="Id" />
         <!--<input type="hidden" asp-for="RegNr" />-->
@@ -67,3 +68,31 @@
         <a asp-action="Index">Back to List</a>
     </form>
 </div>
+
+
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="deleteLabel">Checking out the vehicle</h4>
+            </div>
+            <div class="modal-body">
+                <p>Do you want to check out the @Html.DisplayFor(model => model.Type) with registration number: @Html.DisplayFor(model => model.RegNr)?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Cancel</button>
+                <form asp-action="Delete">
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        var deleteConfirm = function () {
+            $('#deleteConfirmModal').modal('show');
+        }
+    </script>
+}

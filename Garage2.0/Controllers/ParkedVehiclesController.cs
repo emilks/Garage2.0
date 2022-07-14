@@ -258,5 +258,11 @@ namespace Garage2._0.Controllers
         {
           return (_context.ParkedVehicle?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+        public IActionResult PartialDelete(int id)
+        {
+            var viewModel = _context.ParkedVehicle.FirstOrDefault(m => m.Id == id);
+            return PartialView("PartialDelete", viewModel);
+        }
     }
 }

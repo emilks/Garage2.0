@@ -87,3 +87,20 @@
 }
     </tbody>
 </table>
+@section scripts{
+    <script>
+        function openSuccessMOdel(strMessage) {
+    var myDiv = document.getElementById("MyModalAlert");
+    myDiv.innerHTML = strMessage;
+    $("#SuccessfulMessage").modal("show");
+   
+};
+$(document).ready(function(){
+    var msg = "@TempData["SuccessMessage"]";
+
+     if (msg) {
+        openSuccessMOdel(msg);
+    }
+});
+    </script>
+}

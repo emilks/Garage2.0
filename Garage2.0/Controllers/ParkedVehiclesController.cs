@@ -81,7 +81,14 @@ namespace Garage2._0.Controllers
         {
             return View();
         }
-
+        public IActionResult Home()
+        {
+            return View();
+        }
+        public IActionResult Unpark()
+        {
+            return View();
+        }
         // POST: ParkedVehicles/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -99,7 +106,12 @@ namespace Garage2._0.Controllers
             return View(parkedVehicle);
 
         }
-        
+        //Unpark a vehicle
+        //public async Task<IActionResult> unPark()
+        //{
+
+        //}
+
         //Search for Type of Vehicle
         public async Task<IActionResult> FilterType(VehicleType Type)
         {
@@ -140,17 +152,54 @@ namespace Garage2._0.Controllers
             return View(parkedVehicle);
         }
 
+        [HttpPost]
+        [AcceptVerbs("GET", "POST")]
+        public  IActionResult GetVehicle(string RegNr)
+        {
+
+            var regNr = _context.ParkedVehicle.FirstOrDefault(m => m.RegNr == RegNr);
+            if (regNr == null)
+            {
+                return NotFound();
+            }
+
+            else
+                    {
+
+                return RedirectToAction(nameof(Delete), new  { id = regNr.Id }); //Vehicles/delete?id=123
+            }
+
+
+
+        }
         //Remote validation to check if regNr is already used
         [AcceptVerbs("GET", "POST")]
         public IActionResult IsRegNrUsed(string RegNr, int Id)
         {
-            var regNr = _context.ParkedVehicle!.FirstOrDefault(m => m.RegNr == RegNr);
-            if(regNr == null || regNr.Id == Id)
+            var regNr = _context.ParkedVehicle.FirstOrDefault(m => m.RegNr == RegNr);
+            if (regNr == null)
             {
                 return Json(true);
             }
 
-            return Json(false);
+            else
+            {
+                return Json(false);
+            }
+
+            
+        }
+        [AcceptVerbs("GET", "POST")]
+        public IActionResult NoVehicle(string RegNr)
+        {
+            var regNr = _context.ParkedVehicle!.FirstOrDefault(m => m.RegNr == RegNr);
+            if (regNr == null)
+            {
+                return Json(false);
+            }
+            {
+                return Json(true);
+            }
         }
 
         // POST: ParkedVehicles/Edit/5

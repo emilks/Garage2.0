@@ -94,7 +94,7 @@ namespace Garage2._0.Controllers
                 parkedVehicle.ArrivalTime = DateTime.Now;//automatic time
                 _context.Add(parkedVehicle);
                 await _context.SaveChangesAsync();
-                TempData["SuccessMessage"] = "" + parkedVehicle.Type + "Vehicle Created Successfully ";
+                TempData["SuccessMessage"] = "" + parkedVehicle.Type + " with registration number "+ parkedVehicle.RegNr+" parked successfully ";
 
                 return RedirectToAction(nameof(Index));
             }

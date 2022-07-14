@@ -41,6 +41,9 @@
                 <input asp-for="Model" class="form-control" />
                 <span asp-validation-for="Model" class="text-danger"></span>
             </div>
+            <div style="display:none">
+            @Html.EditorFor(m => m.ArrivalTime)
+           </div>
             <div class="form-group">
                 <label asp-for="NrOfWheels" class="control-label"></label>
                 <input asp-for="NrOfWheels" class="form-control" />

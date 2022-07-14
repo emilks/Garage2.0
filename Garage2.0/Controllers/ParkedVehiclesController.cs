@@ -181,7 +181,7 @@ namespace Garage2._0.Controllers
         public IActionResult IsRegNrUsed(string RegNr, int Id)
         {
             var regNr = _context.ParkedVehicle.FirstOrDefault(m => m.RegNr == RegNr);
-            if (regNr == null)
+            if (regNr == null || regNr.Id == Id)
             {
                 return Json(true);
             }

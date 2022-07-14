@@ -28,6 +28,8 @@ namespace Garage2._0.Models
         public int NrOfWheels { get; set; }
 
         [Display(Name = "Arrival Time")]
+        [DataType(DataType.DateTime)]
+
         public DateTime ArrivalTime { get; set; }
        
 

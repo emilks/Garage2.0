@@ -81,15 +81,16 @@
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a href="#" id="btnDetails" class="btn btn-danger btn-sm" data-id="@item.Id">Details</a> |
+                <a href="#" id="btnDelete" class="btn btn-danger btn-sm" data-id="@item.Id">Check Out</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
 @section scripts{
-    <script>
-        function openSuccessMOdel(strMessage) {
+<script>
+function openSuccessMOdel(strMessage) {
     var myDiv = document.getElementById("MyModalAlert");
     myDiv.innerHTML = strMessage;
     $("#SuccessfulMessage").modal("show");
@@ -102,5 +103,39 @@ $(document).ready(function(){
         openSuccessMOdel(msg);
     }
 });
-    </script>
+
+$(function () {
+    $("body").on('click', '#btnDelete', function () {
+        $("#myModel").modal("hide");
+
+        var id = $(this).attr('data-id');
+ 
+        $.ajax({
+            url: 'PartialDelete',
+            data: { id },
+            success: function (response) {
+                $("#postPartial").html(response);
+                $("#myModel").modal("show");
+            }
+        });
+    });
+});
+
+$(function () {
+    $("body").on('click', '#btnDetails', function () {
+        $("#myModel").modal("hide");
+
+        var id = $(this).attr('data-id');
+ 
+        $.ajax({
+            url: 'PartialDetails',
+            data: { id },
+            success: function (response) {
+                $("#postPartial").html(response);
+                $("#myModel").modal("show");
+            }
+        });
+    });
+});
+</script>
 }

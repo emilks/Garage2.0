@@ -151,7 +151,7 @@ namespace Garage2._0.Controllers
             {
                 return NotFound();
             }
-            TempData["SuccessMessage"] = "" + parkedVehicle.Type + " Vehicle Saved Successfully ";
+            TempData["SuccessMessage"] = " Vehicle Edited Successfully ";
 
             return View(parkedVehicle);
         }
@@ -211,7 +211,7 @@ namespace Garage2._0.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Type,RegNr,Color,Brand,Model,NrOfWheels,ArrivalTime")] ParkedVehicle parkedVehicle)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Type,RegNr,Color,Brand,Model,NrOfWheels")] ParkedVehicle parkedVehicle)
         {
             if (id != parkedVehicle.Id)
             {
@@ -223,6 +223,7 @@ namespace Garage2._0.Controllers
                 try
                 {
                     _context.Update(parkedVehicle);
+                    _context.Entry(parkedVehicle).Property(m => m.ArrivalTime).IsModified = false;
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

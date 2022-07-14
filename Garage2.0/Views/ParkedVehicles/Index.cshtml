@@ -79,7 +79,7 @@
                 @Html.DisplayFor(modelItem => item.ArrivalTime)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Edit</a> |
                 <a href="#" id="btnDetails" class="btn btn-danger btn-sm" data-id="@item.Id">Details</a> |
                 <a href="#" id="btnDelete" class="btn btn-danger btn-sm" data-id="@item.Id">Check Out</a>
             </td>

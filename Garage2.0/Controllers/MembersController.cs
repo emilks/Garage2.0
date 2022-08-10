@@ -159,5 +159,44 @@ namespace Garage2._0.Controllers
         {
           return (_context.Member?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+        //Remote validation to check that firstName abd LastName are different
+        [AcceptVerbs("GET", "POST")]
+        public IActionResult FirstLastDiff(string LastName, string FirstName)
+        {
+            if (LastName.Equals(FirstName))
+            {
+                return Json(false);
+            }
+
+            else
+            {
+                return Json(true);
+            }
+        }
+
+        //Remote validation to check if perNr is already used
+        [AcceptVerbs("GET", "POST")]
+        public IActionResult IsPerNrUsed(int PerNr, int Id)
+        {
+            var perNr = _context.Member.FirstOrDefault(m => m.PerNr == PerNr);
+            if (perNr == null || perNr.Id == Id)
+            {
+                return Json(true);
+            }
+
+            else
+            {
+                return Json(false);
+            }
+        }
+
+        //Remote validation to check if regNr is already used
+        [AcceptVerbs("GET", "POST")]
+        public IActionResult PerNrFormat(int PerNr, int Id)
+        {
+            //TODO
+            return Json(true);
+        }
     }
 }

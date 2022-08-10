@@ -2,19 +2,19 @@
 {
     public class Member
     {
-        private Member()
-        {
-            FirstName = null!;
-            LastName = null!;
-            PerNr = 0!;
-        }
+        //private Member()
+        //{
+        //    FirstName = null!;
+        //    LastName = null!;
+        //    PerNr = 0!;
+        //}
 
-        public Member(string firstName, string lastName,  int perNr)
-        {
-            FirstName = firstName;
-            LastName = lastName;
-            PerNr = perNr;
-        }
+        //public Member(string firstName, string lastName,  int perNr)
+        //{
+        //    FirstName = firstName;
+        //    LastName = lastName;
+        //    PerNr = perNr;
+        //}
 
         public int Id { get; set; }
 

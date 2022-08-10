@@ -44,6 +44,8 @@ namespace Garage2._0.Controllers
 //                          Problem("Entity set 'Garage2_0Context.ParkedVehicle'  is null.");
         }
 
+
+
         public async Task<IActionResult> Overview()
         {
             var model = _context.ParkedVehicle!.Select(v => new OverviewViewModel
@@ -81,6 +83,16 @@ namespace Garage2._0.Controllers
         {
             return View();
         }
+
+        public IActionResult RegisterCar()
+        {
+            return View();
+        }
+        public IActionResult CrateMember()
+        {
+            return View();
+        }
+
         public IActionResult Home()
         {
             return View();

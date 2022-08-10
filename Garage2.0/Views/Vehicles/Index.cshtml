@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Garage2._0.Models.Vehicle>
+﻿@using Garage2._0.Models.ViewModels
+@model IEnumerable<VehicleIndexViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -28,8 +29,9 @@
                 @Html.DisplayNameFor(model => model.NrOfWheels)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Member)
+                @Html.DisplayNameFor(model => model.PerNr)
             </th>
+             
             <th></th>
         </tr>
     </thead>
@@ -52,8 +54,9 @@
                 @Html.DisplayFor(modelItem => item.NrOfWheels)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Member.Id)
+                @Html.DisplayFor(modelItem => item.PerNr)
             </td>
+             
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |

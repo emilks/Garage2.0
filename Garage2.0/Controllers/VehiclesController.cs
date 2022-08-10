@@ -7,25 +7,33 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Garage2._0.Data;
 using Garage2._0.Models;
+using AutoMapper;
+using Garage2._0.Models.ViewModels;
 
 namespace Garage2._0.Controllers
 {
     public class VehiclesController : Controller
     {
         private readonly Garage2_0Context _context;
+        private readonly IMapper mapper;
 
-        public VehiclesController(Garage2_0Context context)
+        public VehiclesController(Garage2_0Context context, IMapper mapper)
         {
             _context = context;
+            this.mapper = mapper;
+
         }
 
         // GET: Vehicles
         public async Task<IActionResult> Index()
         {
-            var garage2_0Context = _context.Vehicle.Include(v => v.Member);
-            return View(await garage2_0Context.ToListAsync());
-        }
+            var viewModel = await mapper.ProjectTo<VehicleIndexViewModel>(_context.Vehicle)
+                  .OrderByDescending(s => s.Id)
+                  .ToListAsync();
 
+            return View(viewModel);
+        }
+        
         // GET: Vehicles/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -57,16 +65,17 @@ namespace Garage2._0.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,RegNr,Color,Brand,Model,NrOfWheels,MemberId")] Vehicle vehicle)
+        public async Task<IActionResult> Create(CreateVehicleViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
+                var vehicle = mapper.Map<Vehicle>(viewModel);
+
                 _context.Add(vehicle);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MemberId"] = new SelectList(_context.Member, "Id", "Id", vehicle.MemberId);
-            return View(vehicle);
+            return View(viewModel);
         }
 
         // GET: Vehicles/Edit/5
@@ -82,7 +91,7 @@ namespace Garage2._0.Controllers
             {
                 return NotFound();
             }
-            ViewData["MemberId"] = new SelectList(_context.Member, "Id", "Id", vehicle.MemberId);
+          //  ViewData["MemberId"] = new SelectList(_context.Member, "Id", "Id", vehicle.MemberId);
             return View(vehicle);
         }
 

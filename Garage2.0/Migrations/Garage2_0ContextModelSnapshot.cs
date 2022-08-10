@@ -102,52 +102,6 @@ namespace Garage2._0.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ParkedVehicle");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ArrivalTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Brand = "Ford",
-                            Color = "Red",
-                            Model = "2",
-                            NrOfWheels = 4,
-                            RegNr = "ABC123",
-                            Type = 2
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ArrivalTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Brand = "Ford",
-                            Color = "Blue",
-                            Model = "2",
-                            NrOfWheels = 4,
-                            RegNr = "DEF234",
-                            Type = 0
-                        },
-                        new
-                        {
-                            Id = 3,
-                            ArrivalTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Brand = "Ford",
-                            Color = "Green",
-                            Model = "2",
-                            NrOfWheels = 4,
-                            RegNr = "GHI345",
-                            Type = 4
-                        },
-                        new
-                        {
-                            Id = 4,
-                            ArrivalTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Brand = "Ford",
-                            Color = "Yellow",
-                            Model = "2",
-                            NrOfWheels = 4,
-                            RegNr = "JKL456",
-                            Type = 2
-                        });
                 });
 
             modelBuilder.Entity("Garage2._0.Models.ParkingSpace", b =>

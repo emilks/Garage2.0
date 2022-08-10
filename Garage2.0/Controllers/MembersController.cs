@@ -45,6 +45,11 @@ namespace Garage2._0.Controllers
             return View(member);
         }
 
+        public IActionResult RegisterCar()
+        {
+            return View();
+        }
+
         // GET: Members/Create
         public IActionResult Create()
         {

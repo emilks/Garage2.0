@@ -12,8 +12,13 @@
 <hr />
         <div class="text-center ">
            <div class="btn-group btn-group-justified" role="group" >
+               <div>
+                <a asp-action="RegisterCar" type="button" class="btn btn-success me-2" style="font-weight: bold">REGISTER A NEW CAR</a></div>
+                <a asp-controller="Members" asp-action="Create" type="button" class="btn btn-success me-2" style="font-weight: bold">REGISTER AS A MEMBER</a>
+
                 <a asp-action="Create" type="button" class="btn btn-success me-2" style="font-weight: bold">PARK</a>
-                 <a asp-action="Unpark" type="button" class="btn btn-danger me-2" style="font-weight: bold">UNPARK</a>
+                <a asp-action="Unpark" type="button" class="btn btn-danger me-2" style="font-weight: bold">UNPARK</a>
+               
                 @*<div class="form-group col-6">
                     <input asp-action="Create" asp-controller="ParkedVehicles" type="submit" value="Park me" class="btn btn-primary mt-2" />
                 </div>

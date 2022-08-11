@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Garage2._0.Migrations
 {
-    public partial class database : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -17,7 +17,7 @@ namespace Garage2._0.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PerNr = table.Column<int>(type: "int", nullable: false)
+                    PerNr = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -44,7 +44,7 @@ namespace Garage2._0.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "VehicleTypeEntity",
+                name: "VehicleType",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -54,7 +54,7 @@ namespace Garage2._0.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_VehicleTypeEntity", x => x.Id);
+                    table.PrimaryKey("PK_VehicleType", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -69,7 +69,7 @@ namespace Garage2._0.Migrations
                     Model = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NrOfWheels = table.Column<int>(type: "int", nullable: false),
                     MemberId = table.Column<int>(type: "int", nullable: false),
-                    TypeId = table.Column<int>(type: "int", nullable: false)
+                    VehicleTypeEntityId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -81,9 +81,9 @@ namespace Garage2._0.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Vehicle_VehicleTypeEntity_TypeId",
-                        column: x => x.TypeId,
-                        principalTable: "VehicleTypeEntity",
+                        name: "FK_Vehicle_VehicleType_VehicleTypeEntityId",
+                        column: x => x.VehicleTypeEntityId,
+                        principalTable: "VehicleType",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -127,17 +127,6 @@ namespace Garage2._0.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
-                table: "ParkedVehicle",
-                columns: new[] { "Id", "ArrivalTime", "Brand", "Color", "Model", "NrOfWheels", "RegNr", "Type" },
-                values: new object[,]
-                {
-                    { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ford", "Red", "2", 4, "ABC123", 2 },
-                    { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ford", "Blue", "2", 4, "DEF234", 0 },
-                    { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ford", "Green", "2", 4, "GHI345", 4 },
-                    { 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ford", "Yellow", "2", 4, "JKL456", 2 }
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Park_VehicleId",
                 table: "Park",
@@ -155,9 +144,9 @@ namespace Garage2._0.Migrations
                 column: "MemberId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Vehicle_TypeId",
+                name: "IX_Vehicle_VehicleTypeEntityId",
                 table: "Vehicle",
-                column: "TypeId");
+                column: "VehicleTypeEntityId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -178,7 +167,7 @@ namespace Garage2._0.Migrations
                 name: "Member");
 
             migrationBuilder.DropTable(
-                name: "VehicleTypeEntity");
+                name: "VehicleType");
         }
     }
 }

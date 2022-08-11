@@ -17,7 +17,7 @@ namespace Garage2._0.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.7")
+                .HasAnnotation("ProductVersion", "6.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -38,8 +38,9 @@ namespace Garage2._0.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PerNr")
-                        .HasColumnType("int");
+                    b.Property<string>("PerNr")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -153,14 +154,14 @@ namespace Garage2._0.Migrations
                         .HasMaxLength(6)
                         .HasColumnType("nvarchar(6)");
 
-                    b.Property<int>("TypeId")
+                    b.Property<int>("VehicleTypeEntityId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("MemberId");
 
-                    b.HasIndex("TypeId");
+                    b.HasIndex("VehicleTypeEntityId");
 
                     b.ToTable("Vehicle");
                 });
@@ -182,7 +183,7 @@ namespace Garage2._0.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("VehicleTypeEntity");
+                    b.ToTable("VehicleType");
                 });
 
             modelBuilder.Entity("Garage2._0.Models.Park", b =>
@@ -208,20 +209,25 @@ namespace Garage2._0.Migrations
             modelBuilder.Entity("Garage2._0.Models.Vehicle", b =>
                 {
                     b.HasOne("Garage2._0.Models.Member", "Member")
-                        .WithMany()
+                        .WithMany("Vehicles")
                         .HasForeignKey("MemberId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Garage2._0.Models.VehicleTypeEntity", "Type")
+                    b.HasOne("Garage2._0.Models.VehicleTypeEntity", "VehicleTypeEntity")
                         .WithMany()
-                        .HasForeignKey("TypeId")
+                        .HasForeignKey("VehicleTypeEntityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Member");
 
-                    b.Navigation("Type");
+                    b.Navigation("VehicleTypeEntity");
+                });
+
+            modelBuilder.Entity("Garage2._0.Models.Member", b =>
+                {
+                    b.Navigation("Vehicles");
                 });
 
             modelBuilder.Entity("Garage2._0.Models.Park", b =>

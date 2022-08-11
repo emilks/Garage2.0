@@ -1,10 +1,10 @@
-﻿@model CreateVehicleViewModel
+﻿@model Garage2._0.Models.CreateVehicleViewModel
 
 @{
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Createm</h1>
 
 <h4>Vehicle</h4>
 <hr />
@@ -12,7 +12,13 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-         
+  
+            <div class="form-group">
+                <label asp-for="Member" class="control-label"></label>
+                <input asp- asp-for="Member.Name" type="text" class="form-control"/>
+                <input asp- asp-for="Member.Id" type="hidden"/>
+                <span asp-validation-for="Member" class="text-danger"></span>
+            </div>          
             <div class="form-group">
                 <label asp-for="RegNr" class="control-label"></label>
                 <input asp-for="RegNr" class="form-control" />
@@ -38,22 +44,21 @@
                 <input asp-for="NrOfWheels" class="form-control" />
                 <span asp-validation-for="NrOfWheels" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="PerNr" class="control-label"></label>
-                <select asp-for="PerNr" class ="form-control" asp-items="ViewBag.PerNr" ></select>
-              <span asp-validation-for="PerNr" class="text-danger"></span>
+                <div class="form-group">
+                <label asp-for="VehicleType" class="control-label"></label>
+                <partial name="_VehicleTypeInput" for="VehicleType" />
+
+              <span asp-validation-for="VehicleType.Id" class="text-danger"></span>
 
             </div>
-              <div class="form-group">
-                <label asp-for="Category" class="control-label"></label>
-                <input asp-for="Category" class="form-control" />
-                <span asp-validation-for="Category" class="text-danger"></span>
-            </div>
-              <div class="form-group">
+
+         
+          
+@*              <div class="form-group">
                 <label asp-for="Size" class="control-label"></label>
                 <input asp-for="Size" class="form-control" />
                 <span asp-validation-for="Size" class="text-danger"></span>
-            </div>
+            </div>*@
            
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

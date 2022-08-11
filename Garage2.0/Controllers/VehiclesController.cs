@@ -9,6 +9,7 @@ using Garage2._0.Data;
 using Garage2._0.Models;
 using AutoMapper;
 using Garage2._0.Models.ViewModels;
+using Bogus;
 
 namespace Garage2._0.Controllers
 {
@@ -16,6 +17,7 @@ namespace Garage2._0.Controllers
     {
         private readonly Garage2_0Context _context;
         private readonly IMapper mapper;
+        
 
         public VehiclesController(Garage2_0Context context, IMapper mapper)
         {
@@ -56,7 +58,6 @@ namespace Garage2._0.Controllers
         // GET: Vehicles/Create
         public IActionResult Create()
         {
-            ViewData["MemberId"] = new SelectList(_context.Member, "Id", "Id");
             return View();
         }
 
@@ -65,13 +66,18 @@ namespace Garage2._0.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CreateVehicleViewModel viewModel)
+        public async Task<IActionResult> Create([Bind("Id,Member,RegNr,Color,Brand,Model,NrOfWheels,VehicleType")] CreateVehicleViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                var vehicle = mapper.Map<Vehicle>(viewModel);
+                var vehicleTypeEntity = _context.VehicleType.FirstOrDefault(vehicleType => vehicleType.Id == viewModel.VehicleType.Id);
+                var memberEntity = _context.Member.FirstOrDefault(member => member.Id == viewModel.Member.Id);
 
-                _context.Add(vehicle);
+                var vehicleEntity = mapper.Map<Vehicle>(viewModel);
+                vehicleEntity.VehicleTypeEntity = vehicleTypeEntity;
+                vehicleEntity.Member = memberEntity;
+
+                _context.Add(vehicleEntity);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

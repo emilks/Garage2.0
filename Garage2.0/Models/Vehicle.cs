@@ -27,8 +27,8 @@ namespace Garage2._0.Models
         public int MemberId { get; set; }
 
         public Member Member { get; set; }
-
-        public VehicleTypeEntity Type { get; set; }
+        public int VehicleTypeEntityId { get; set; }
+        public VehicleTypeEntity VehicleTypeEntity { get; set; }
         
         public Park? Park { get; set; }
     }

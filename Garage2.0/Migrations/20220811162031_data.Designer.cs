@@ -4,6 +4,7 @@ using Garage2._0.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Garage2._0.Migrations
 {
     [DbContext(typeof(Garage2_0Context))]
-    partial class Garage2_0ContextModelSnapshot : ModelSnapshot
+    [Migration("20220811162031_data")]
+    partial class data
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,22 +47,6 @@ namespace Garage2._0.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Member");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            FirstName = "John",
-                            LastName = "Doe",
-                            PerNr = "123456"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            FirstName = "Jane",
-                            LastName = "Doe",
-                            PerNr = "123"
-                        });
                 });
 
             modelBuilder.Entity("Garage2._0.Models.Park", b =>
@@ -129,6 +115,10 @@ namespace Garage2._0.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("NumberSpot")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("ParkId")
                         .HasColumnType("int");
 
@@ -137,13 +127,6 @@ namespace Garage2._0.Migrations
                     b.HasIndex("ParkId");
 
                     b.ToTable("ParkingSpace");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ParkId = 0
-                        });
                 });
 
             modelBuilder.Entity("Garage2._0.Models.Vehicle", b =>
@@ -187,19 +170,6 @@ namespace Garage2._0.Migrations
                     b.HasIndex("VehicleTypeEntityId");
 
                     b.ToTable("Vehicle");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Brand = "Volvo",
-                            Color = "Red",
-                            MemberId = 1,
-                            Model = "V20",
-                            NrOfWheels = 4,
-                            RegNr = "AAA111",
-                            VehicleTypeEntityId = 1
-                        });
                 });
 
             modelBuilder.Entity("Garage2._0.Models.VehicleTypeEntity", b =>
@@ -219,15 +189,7 @@ namespace Garage2._0.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("VehicleTypeEntity");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Category = "Car",
-                            Size = 1
-                        });
+                    b.ToTable("VehicleType");
                 });
 
             modelBuilder.Entity("Garage2._0.Models.Park", b =>

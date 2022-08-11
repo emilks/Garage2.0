@@ -1,0 +1,32 @@
+﻿@model Garage2._0.Models.SearchVehicleRegNrViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="Vehicles" asp-action="GetVehicle">
+            <div asp-validation-summary="ModelOnly" class="text-success"></div>
+            
+            <div class="form-group">
+                <label asp-for="RegNr" class="control-label"></label>
+                <input asp-for="RegNr" class="form-control" />
+                <span asp-validation-for="RegNr" class="text-sucsess"></span>
+               
+            </div>
+            
+            
+            <div class="form-group ">
+                <input   type="submit" value="Park me" style="font-weight: bold" class="btn btn-success mt-2" />
+            </div>
+                   
+        </form>
+        </div>
+ </div>

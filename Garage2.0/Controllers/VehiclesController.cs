@@ -160,6 +160,38 @@ namespace Garage2._0.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public IActionResult Park()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AcceptVerbs("GET", "POST")]
+        public IActionResult GetVehicle(string RegNr)
+        {
+            var regNr = _context.Vehicle.FirstOrDefault(m => m.RegNr == RegNr);
+            if (regNr == null)
+            {
+                return NotFound();
+            }
+
+            else
+            {
+                var park = new Park();
+                park.ArrivalTime = DateTime.Now;
+                park.VehicleId = regNr.Id;
+                //park.Vehicle = regNr;
+                //park.Spaces.
+
+                regNr.Park = park;
+
+                _context.Add(park);
+                _context.SaveChanges();
+
+                return RedirectToAction(nameof(Details), new { id = regNr.Id }); //Vehicles/delete?id=123
+            }
+        }
+
         private bool VehicleExists(int id)
         {
           return (_context.Vehicle?.Any(e => e.Id == id)).GetValueOrDefault();

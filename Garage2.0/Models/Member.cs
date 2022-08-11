@@ -22,7 +22,7 @@ namespace Garage2._0.Models
         //[StringLength(12, ErrorMessage = "The personal registration number must be exactly length 12.", MinimumLength = 12)]
         [Remote(action: "IsPerNrUsed", controller: "Members", ErrorMessage = "The personal registration number is already in use.", AdditionalFields = nameof(Id))]
         //[Remote(action: "PerNrFormat", controller: "Member", ErrorMessage = "", AdditionalFields = nameof(Id))]
-        public int PerNr { get; set; }
+        public string PerNr { get; set; }
 
         public IEnumerable<Vehicle> Vehicles { get; set; } = new List<Vehicle>();
     }

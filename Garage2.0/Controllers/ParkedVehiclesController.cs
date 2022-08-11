@@ -24,7 +24,7 @@ namespace Garage2._0.Controllers
         public async Task<IActionResult> Index()
         {
 
-            var model = _context.ParkedVehicle.Select(v => new ParkedVehicle
+            /*var model = _context.ParkedVehicle.Select(v => new ParkedVehicle
             {
                 ArrivalTime = v.ArrivalTime,
                 Type = v.Type,
@@ -38,10 +38,10 @@ namespace Garage2._0.Controllers
 
             });
             return View(await model.ToListAsync());
-            Problem("Entity set 'Garage2_0Context.ParkedVehicle'  is null.");
-//              return _context.ParkedVehicle != null ? 
-//                          View(await _context.ParkedVehicle.ToListAsync()) :
-//                          Problem("Entity set 'Garage2_0Context.ParkedVehicle'  is null.");
+            Problem("Entity set 'Garage2_0Context.ParkedVehicle'  is null.");*/
+              return _context.ParkedVehicle != null ? 
+                          View(await _context.ParkedVehicle.ToListAsync()) :
+                          Problem("Entity set 'Garage2_0Context.ParkedVehicle'  is null.");
         }
 
 

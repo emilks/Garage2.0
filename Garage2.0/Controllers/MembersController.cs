@@ -184,7 +184,7 @@ namespace Garage2._0.Controllers
         [AcceptVerbs("GET", "POST")]
         public IActionResult IsPerNrUsed(int PerNr, int Id)
         {
-            var perNr = _context.Member.FirstOrDefault(m => m.PerNr == PerNr);
+            var perNr = _context.Member.FirstOrDefault(m => m.PerNr.Equals(PerNr));
             if (perNr == null || perNr.Id == Id)
             {
                 return Json(true);

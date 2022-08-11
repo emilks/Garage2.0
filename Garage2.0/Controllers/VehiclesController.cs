@@ -165,6 +165,19 @@ namespace Garage2._0.Controllers
             return View();
         }
 
+        [AcceptVerbs("GET", "POST")]
+        public IActionResult NoVehicle(string RegNr)
+        {
+            var regNr = _context.Vehicle!.FirstOrDefault(m => m.RegNr == RegNr);
+            if (regNr == null)
+            {
+                return Json(false);
+            }
+            {
+                return Json(true);
+            }
+        }
+
         [HttpPost]
         [AcceptVerbs("GET", "POST")]
         public IActionResult GetVehicle(string RegNr)
@@ -177,13 +190,16 @@ namespace Garage2._0.Controllers
 
             else
             {
+                var prkSpace = _context.ParkingSpace.FirstOrDefault(m => m.Park == null);
+                
                 var park = new Park();
                 park.ArrivalTime = DateTime.Now;
                 park.VehicleId = regNr.Id;
-                //park.Vehicle = regNr;
-                //park.Spaces.
+                park.Vehicle = regNr;
+                park.Spaces.Append(prkSpace);
 
-                regNr.Park = park;
+
+                //regNr.Park = park;
 
                 _context.Add(park);
                 _context.SaveChanges();
@@ -196,5 +212,7 @@ namespace Garage2._0.Controllers
         {
           return (_context.Vehicle?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+        
     }
 }

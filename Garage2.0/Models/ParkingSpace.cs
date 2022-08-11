@@ -4,8 +4,8 @@
     {
         public int Id { get; set; }
 
-        public int ParkId { get; set; }
+        public int ParkingNr { get; set; }
 
-        public Park Park;
+        public Park? Park;
     }
 }

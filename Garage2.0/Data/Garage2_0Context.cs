@@ -25,6 +25,10 @@ namespace Garage2._0.Data
 
         public DbSet<Garage2._0.Models.Vehicle>? Vehicle { get; set; }
 
+        public DbSet<Garage2._0.Models.Park>? Park { get; set; }
+
+        public DbSet<Garage2._0.Models.ParkingSpace>? ParkingSpace { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -39,11 +43,15 @@ namespace Garage2._0.Data
             );
 
             modelBuilder.Entity<Vehicle>().HasData(
-                new Vehicle { Id = 1, RegNr = "AAA111", Color = "Red", Brand = "Volvo", Model = "V20", NrOfWheels = 4, MemberId = 1, VehicleTypeEntityId = 1}
+                new Vehicle { Id = 1, RegNr = "AAA111", Color = "Red", Brand = "Volvo", Model = "V20", NrOfWheels = 4, MemberId = 1, VehicleTypeEntityId = 1 },
+                new Vehicle { Id = 2, RegNr = "BBB222", Color = "Black", Brand = "Mercedes", Model = "X100", NrOfWheels = 4, MemberId = 1, VehicleTypeEntityId = 1 },
+                new Vehicle { Id = 3, RegNr = "CCC333", Color = "White", Brand = "Ferrari", Model = "E-Type", NrOfWheels = 4, MemberId = 1, VehicleTypeEntityId = 1 },
+                new Vehicle { Id = 4, RegNr = "DDD444", Color = "Blue", Brand = "Volvo", Model = "V20", NrOfWheels = 4, MemberId = 2, VehicleTypeEntityId = 1 }
             );
 
             modelBuilder.Entity<ParkingSpace>().HasData(
-                new ParkingSpace { Id = 1}
+                new ParkingSpace { Id = 1, ParkingNr = 1 },
+                new ParkingSpace { Id = 2, ParkingNr = 2 }
             );
         }
     }

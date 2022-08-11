@@ -182,10 +182,10 @@ namespace Garage2._0.Controllers
 
         //Remote validation to check if perNr is already used
         [AcceptVerbs("GET", "POST")]
-        public IActionResult IsPerNrUsed(int PerNr, int Id)
+        public IActionResult IsPerNrUsed(string PerNr, int Id)
         {
-            var perNr = _context.Member.FirstOrDefault(m => m.PerNr.Equals(PerNr));
-            if (perNr == null || perNr.Id == Id)
+            var perNr = _context.Member!.FirstOrDefault(m => m.PerNr.Equals(PerNr));
+            if (perNr == null)
             {
                 return Json(true);
             }
@@ -198,7 +198,7 @@ namespace Garage2._0.Controllers
 
         //Remote validation to check if regNr is already used
         [AcceptVerbs("GET", "POST")]
-        public IActionResult PerNrFormat(int PerNr, int Id)
+        public IActionResult PerNrFormat(string PerNr, int Id)
         {
             //TODO
             return Json(true);

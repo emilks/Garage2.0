@@ -20,11 +20,23 @@ namespace Garage2._0.Controllers
         }
 
         // GET: Members
+        //public async Task<IActionResult> Index()
+        //{
+        //      return _context.Member != null ? 
+        //                  View(await _context.Member.ToListAsync()) :
+        //                  Problem("Entity set 'Garage2_0Context.Member'  is null.");
+        //}
+
         public async Task<IActionResult> Index()
         {
-              return _context.Member != null ? 
-                          View(await _context.Member.ToListAsync()) :
-                          Problem("Entity set 'Garage2_0Context.Member'  is null.");
+            var orderdMembers = _context.Member
+                .OrderBy(m => m.FirstName.Substring(0, 1));
+                
+            
+            return View(await orderdMembers.ToListAsync());
+        
+
+            // Problem("Entity set 'Garage2_0Context.Member'  is null.");
         }
 
         // GET: Members/Details/5

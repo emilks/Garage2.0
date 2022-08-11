@@ -5,7 +5,7 @@ namespace Garage2._0.Models
 {
     public class Park
     {
-        public int Id { get; set; }
+        public int ? Id { get; set; }
 
         [Display(Name = "Arrival Time")]
         [DataType(DataType.DateTime)]

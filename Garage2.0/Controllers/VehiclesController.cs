@@ -44,9 +44,11 @@ namespace Garage2._0.Controllers
                 return NotFound();
             }
 
-            var vehicle = await _context.Vehicle
-                .Include(v => v.Member)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var vehicle = await mapper.ProjectTo<VehicleDetailsViewModel>(_context.Vehicle)
+                                        .FirstOrDefaultAsync(s => s.Id == id);
+            //var vehicle = await _context.Vehicle
+            //    .Include(v => v.Member)
+            //    .FirstOrDefaultAsync(m => m.Id == id);
             if (vehicle == null)
             {
                 return NotFound();
@@ -66,16 +68,16 @@ namespace Garage2._0.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Member,RegNr,Color,Brand,Model,NrOfWheels,VehicleType")] CreateVehicleViewModel viewModel)
+        public async Task<IActionResult> Create( CreateVehicleViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                var vehicleTypeEntity = _context.VehicleType.FirstOrDefault(vehicleType => vehicleType.Id == viewModel.VehicleType.Id);
-                var memberEntity = _context.Member.FirstOrDefault(member => member.Id == viewModel.Member.Id);
+               // var vehicleTypeEntity = _context.VehicleType.FirstOrDefault(vehicleType => vehicleType.Id == viewModel.VehicleType.Id);
+                //var memberEntity = _context.Member.FirstOrDefault(member => member.Id == viewModel.Member.Id);
 
                 var vehicleEntity = mapper.Map<Vehicle>(viewModel);
-                vehicleEntity.VehicleTypeEntity = vehicleTypeEntity;
-                vehicleEntity.Member = memberEntity;
+               // vehicleEntity.VehicleTypeEntity = vehicleTypeEntity;
+               // vehicleEntity.Member = memberEntity;
 
                 _context.Add(vehicleEntity);
                 await _context.SaveChangesAsync();
@@ -91,8 +93,9 @@ namespace Garage2._0.Controllers
             {
                 return NotFound();
             }
-
-            var vehicle = await _context.Vehicle.FindAsync(id);
+            var vehicle = await mapper.ProjectTo<VehicleEditViewModel>(_context.Vehicle)
+                                      .FirstOrDefaultAsync(s => s.Id == id);
+          //  var vehicle = await _context.Vehicle.FindAsync(id);
             if (vehicle == null)
             {
                 return NotFound();
@@ -106,9 +109,9 @@ namespace Garage2._0.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,RegNr,Color,Brand,Model,NrOfWheels,MemberId")] Vehicle vehicle)
+        public async Task<IActionResult> Edit(int id, VehicleEditViewModel viewModel)
         {
-            if (id != vehicle.Id)
+            if (id != viewModel.Id)
             {
                 return NotFound();
             }
@@ -117,12 +120,16 @@ namespace Garage2._0.Controllers
             {
                 try
                 {
-                    _context.Update(vehicle);
+                    var vehicle = await _context.Vehicle.Include(s => s.VehicleTypeEntity)
+                       .FirstOrDefaultAsync(s => s.Id == id);
+
+                    mapper.Map(viewModel, vehicle);
+                    _context.Update(viewModel);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!VehicleExists(vehicle.Id))
+                    if (!VehicleExists(viewModel.Id))
                     {
                         return NotFound();
                     }
@@ -133,8 +140,8 @@ namespace Garage2._0.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MemberId"] = new SelectList(_context.Member, "Id", "Id", vehicle.MemberId);
-            return View(vehicle);
+           // ViewData["MemberId"] = new SelectList(_context.Member, "Id", "Id", vehicle.MemberId);
+            return View(viewModel);
         }
 
         // GET: Vehicles/Delete/5
@@ -174,6 +181,14 @@ namespace Garage2._0.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        public async Task<IActionResult> Search(string term)
+        {
+           
+            return Json(
+                await _context.Member
+                .Where(member => member.FirstName.Contains(term) || member.PerNr.Contains(term))
+                //.Select(member => new { member.Id, Label = member.Name, member.PersonNr, member.Email })
+                .ToListAsync());
 
         public IActionResult Park()
         {
@@ -211,5 +226,6 @@ namespace Garage2._0.Controllers
         {
           return (_context.Vehicle?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
     }
 }

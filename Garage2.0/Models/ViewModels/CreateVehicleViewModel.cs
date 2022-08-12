@@ -1,5 +1,6 @@
 ﻿using Garage2._0.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Garage2._0.Models
@@ -9,7 +10,8 @@ namespace Garage2._0.Models
     {
         [Required]
         [Display(Name = "Member")]
-        public MemberViewModel Member { get; set; }
+        //public MemberViewModel Member { get; set; }
+        public int MemberId { get; set; }
         public string RegNr { get; set; }
         public string Color { get; set; }
         public string Brand { get; set; }
@@ -18,11 +20,11 @@ namespace Garage2._0.Models
         [Display(Name = "Number of Wheels")]
         [Range(0, double.MaxValue, ErrorMessage = "The value must be greater than 0")]
         public int NrOfWheels { get; set; }
-        public VehicleTypeViewModel VehicleType { get; set; }
+        //public VehicleTypeViewModel Type { get; set; }
+        public int VehicleTypeEntityId { get; set; }
 
-
-       
-      //  public int Size { get; set; }
+        [DisplayName("Size Of Vehicle")]
+        public int VehicleTypeSize { get; set; }
 
     }
 }

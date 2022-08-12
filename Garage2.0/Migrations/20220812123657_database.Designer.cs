@@ -12,8 +12,13 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Garage2._0.Migrations
 {
     [DbContext(typeof(Garage2_0Context))]
+<<<<<<<< HEAD:Garage2.0/Migrations/20220812093644_db.Designer.cs
     [Migration("20220812093644_db")]
     partial class db
+========
+    [Migration("20220812123657_database")]
+    partial class database
+>>>>>>>> marlin:Garage2.0/Migrations/20220812123657_database.Designer.cs
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -137,6 +142,10 @@ namespace Garage2._0.Migrations
 
                     b.Property<int?>("ParkId")
                         .HasColumnType("int");
+
+                    b.Property<string>("SpotNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

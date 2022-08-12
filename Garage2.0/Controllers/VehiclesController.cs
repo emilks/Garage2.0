@@ -72,14 +72,15 @@ namespace Garage2._0.Controllers
         {
             if (ModelState.IsValid)
             {
-               // var vehicleTypeEntity = _context.VehicleType.FirstOrDefault(vehicleType => vehicleType.Id == viewModel.VehicleType.Id);
-                //var memberEntity = _context.Member.FirstOrDefault(member => member.Id == viewModel.Member.Id);
+                var vehicleTypeEntity = _context.VehicleType.FirstOrDefault(vehicleType => vehicleType.Id == viewModel.VehicleTypeEntityId);
+                var memberEntity = _context.Member.FirstOrDefault(member => member.Id == viewModel.MemberId);
+                var vehicle = mapper.Map<Vehicle>(viewModel);
 
                 var vehicleEntity = mapper.Map<Vehicle>(viewModel);
-               // vehicleEntity.VehicleTypeEntity = vehicleTypeEntity;
-               // vehicleEntity.Member = memberEntity;
+                vehicleEntity.VehicleTypeEntity = vehicleTypeEntity;
+                vehicleEntity.Member = memberEntity;
 
-                _context.Add(vehicleEntity);
+                _context.Add(vehicle);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

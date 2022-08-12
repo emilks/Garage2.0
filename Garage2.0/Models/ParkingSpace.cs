@@ -3,8 +3,7 @@
     public class ParkingSpace
     {
         public int Id { get; set; }
-
-        public int ParkingNr { get; set; }
+        public string NumberSpot { get; set; }
 
         public Park? Park { get; set; }
     }

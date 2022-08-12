@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Garage2._0.Models;
+using Garage2._0.Models.ViewModels;
 
 namespace Garage2._0.Data
 {
@@ -24,10 +25,8 @@ namespace Garage2._0.Data
 
 
         public DbSet<Garage2._0.Models.Vehicle>? Vehicle { get; set; }
-
-        public DbSet<Garage2._0.Models.Park>? Park { get; set; }
-
-        public DbSet<Garage2._0.Models.ParkingSpace>? ParkingSpace { get; set; }
+        public DbSet<Garage2._0.Models.VehicleTypeEntity>? VehicleType { get; set; }
+        public DbSet<Garage2._0.Models.ParkingSpace>? ParkingSpace{ get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -36,11 +35,11 @@ namespace Garage2._0.Data
                 new Member { Id = 1, FirstName = "John", LastName = "Doe", PerNr = "123456" },
                 new Member { Id = 2, FirstName = "Jane", LastName = "Doe", PerNr = "123" }
             );
-            modelBuilder.Entity<VehicleTypeEntity>().HasData(
-                new VehicleTypeEntity { Id = 1, Category = "Car", Size = 1 }
+            //modelBuilder.Entity<VehicleTypeEntity>().HasData(
+            //    new VehicleTypeEntity { Id = 1, Category = "Car", Size = 1 }
 
-                //new Vehicle { Id = 1, RegNr = "AAA111", Color = "Red", Brand = "Volvo", Model = "V20", NrOfWheels = 4, MemberId = 1, VehicleTypeEntityId = 1 },
-            );
+            //    //new Vehicle { Id = 1, RegNr = "AAA111", Color = "Red", Brand = "Volvo", Model = "V20", NrOfWheels = 4, MemberId = 1, VehicleTypeEntityId = 1 },
+            //);
 
             modelBuilder.Entity<Vehicle>().HasData(
                 new Vehicle { Id = 1, RegNr = "AAA111", Color = "Red", Brand = "Volvo", Model = "V20", NrOfWheels = 4, MemberId = 1, VehicleTypeEntityId = 1 },

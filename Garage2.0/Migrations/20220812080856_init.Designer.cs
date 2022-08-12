@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Garage2._0.Migrations
 {
     [DbContext(typeof(Garage2_0Context))]
-    [Migration("20220811162031_data")]
-    partial class data
+    [Migration("20220812080856_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -47,6 +47,22 @@ namespace Garage2._0.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Member");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FirstName = "John",
+                            LastName = "Doe",
+                            PerNr = "123456"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            FirstName = "Jane",
+                            LastName = "Doe",
+                            PerNr = "123"
+                        });
                 });
 
             modelBuilder.Entity("Garage2._0.Models.Park", b =>
@@ -170,6 +186,19 @@ namespace Garage2._0.Migrations
                     b.HasIndex("VehicleTypeEntityId");
 
                     b.ToTable("Vehicle");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Brand = "Volvo",
+                            Color = "Red",
+                            MemberId = 1,
+                            Model = "V20",
+                            NrOfWheels = 4,
+                            RegNr = "AAA111",
+                            VehicleTypeEntityId = 1
+                        });
                 });
 
             modelBuilder.Entity("Garage2._0.Models.VehicleTypeEntity", b =>
@@ -190,6 +219,14 @@ namespace Garage2._0.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("VehicleType");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Category = "Car",
+                            Size = 1
+                        });
                 });
 
             modelBuilder.Entity("Garage2._0.Models.Park", b =>

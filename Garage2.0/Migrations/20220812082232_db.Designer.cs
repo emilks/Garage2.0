@@ -12,14 +12,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Garage2._0.Migrations
 {
     [DbContext(typeof(Garage2_0Context))]
-    [Migration("20220811114514_init")]
-    partial class init
+    [Migration("20220812082232_db")]
+    partial class db
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.7")
+                .HasAnnotation("ProductVersion", "6.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -131,6 +131,10 @@ namespace Garage2._0.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("NumberSpot")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("ParkId")
                         .HasColumnType("int");
 
@@ -139,13 +143,6 @@ namespace Garage2._0.Migrations
                     b.HasIndex("ParkId");
 
                     b.ToTable("ParkingSpace");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ParkId = 0
-                        });
                 });
 
             modelBuilder.Entity("Garage2._0.Models.Vehicle", b =>
@@ -221,15 +218,7 @@ namespace Garage2._0.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("VehicleTypeEntity");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Category = "Car",
-                            Size = 1
-                        });
+                    b.ToTable("VehicleType");
                 });
 
             modelBuilder.Entity("Garage2._0.Models.Park", b =>

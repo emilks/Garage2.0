@@ -22,9 +22,9 @@ namespace Garage2._0.Controllers
         // GET: Members
         public async Task<IActionResult> Index()
         {
-              return _context.Member != null ? 
-                          View(await _context.Member.ToListAsync()) :
-                          Problem("Entity set 'Garage2_0Context.Member'  is null.");
+              return _context.Member != null ?
+                View(await _context.Member.ToListAsync()) :
+                Problem("Entity set 'Garage2_0Context.Member'  is null.");
         }
 
         // GET: Members/Details/5
@@ -197,11 +197,11 @@ namespace Garage2._0.Controllers
                 return Json(true);
             }
 
-        //    else
-        //    {
-        //        return Json(false);
-        //    }
-        //}
+            else
+            {
+                return Json(false);
+            }
+        }
 
         //Remote validation to check if regNr is already used
         [AcceptVerbs("GET", "POST")]

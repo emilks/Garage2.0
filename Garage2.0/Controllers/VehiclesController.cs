@@ -183,13 +183,13 @@ namespace Garage2._0.Controllers
         }
         public async Task<IActionResult> Search(string term)
         {
-           
+
             return Json(
                 await _context.Member
                 .Where(member => member.FirstName.Contains(term) || member.PerNr.Contains(term))
                 //.Select(member => new { member.Id, Label = member.Name, member.PersonNr, member.Email })
                 .ToListAsync());
-
+        }
         public IActionResult Park()
         {
             return View();

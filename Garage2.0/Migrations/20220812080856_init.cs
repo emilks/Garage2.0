@@ -5,11 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Garage2._0.Migrations
 {
-<<<<<<<< HEAD:Garage2.0/Migrations/20220810151836_seed.cs
-    public partial class seed : Migration
-========
     public partial class init : Migration
->>>>>>>> marlin:Garage2.0/Migrations/20220811080214_init.cs
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -85,15 +81,9 @@ namespace Garage2._0.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-<<<<<<<< HEAD:Garage2.0/Migrations/20220810151836_seed.cs
-                        name: "FK_Vehicle_VehicleTypeEntity_VehicleTypeEntityId",
-                        column: x => x.VehicleTypeEntityId,
-                        principalTable: "VehicleTypeEntity",
-========
                         name: "FK_Vehicle_VehicleType_VehicleTypeEntityId",
                         column: x => x.VehicleTypeEntityId,
                         principalTable: "VehicleType",
->>>>>>>> marlin:Garage2.0/Migrations/20220811080214_init.cs
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -124,7 +114,8 @@ namespace Garage2._0.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ParkId = table.Column<int>(type: "int", nullable: true)
+                    NumberSpot = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ParkId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -133,26 +124,22 @@ namespace Garage2._0.Migrations
                         name: "FK_ParkingSpace_Park_ParkId",
                         column: x => x.ParkId,
                         principalTable: "Park",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
-<<<<<<<< HEAD:Garage2.0/Migrations/20220810151836_seed.cs
             migrationBuilder.InsertData(
                 table: "Member",
                 columns: new[] { "Id", "FirstName", "LastName", "PerNr" },
-                values: new object[,]
-                {
-                    { 1, "John", "Doe", "123456" },
-                    { 2, "Jane", "Doe", "123" }
-                });
+                values: new object[] { 1, "John", "Doe", "123456" });
 
             migrationBuilder.InsertData(
-                table: "ParkingSpace",
-                columns: new[] { "Id", "ParkId" },
-                values: new object[] { 1, null });
+                table: "Member",
+                columns: new[] { "Id", "FirstName", "LastName", "PerNr" },
+                values: new object[] { 2, "Jane", "Doe", "123" });
 
             migrationBuilder.InsertData(
-                table: "VehicleTypeEntity",
+                table: "VehicleType",
                 columns: new[] { "Id", "Category", "Size" },
                 values: new object[] { 1, "Car", 1 });
 
@@ -161,8 +148,6 @@ namespace Garage2._0.Migrations
                 columns: new[] { "Id", "Brand", "Color", "MemberId", "Model", "NrOfWheels", "RegNr", "VehicleTypeEntityId" },
                 values: new object[] { 1, "Volvo", "Red", 1, "V20", 4, "AAA111", 1 });
 
-========
->>>>>>>> marlin:Garage2.0/Migrations/20220811080214_init.cs
             migrationBuilder.CreateIndex(
                 name: "IX_Park_VehicleId",
                 table: "Park",

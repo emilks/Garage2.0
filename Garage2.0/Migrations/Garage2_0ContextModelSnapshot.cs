@@ -4,7 +4,6 @@ using Garage2._0.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -12,15 +11,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Garage2._0.Migrations
 {
     [DbContext(typeof(Garage2_0Context))]
-<<<<<<<< HEAD:Garage2.0/Migrations/20220810151836_seed.Designer.cs
-    [Migration("20220810151836_seed")]
-    partial class seed
-========
-    [Migration("20220811080214_init")]
-    partial class init
->>>>>>>> marlin:Garage2.0/Migrations/20220811080214_init.Designer.cs
+    partial class Garage2_0ContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -136,7 +129,11 @@ namespace Garage2._0.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("ParkId")
+                    b.Property<string>("NumberSpot")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ParkId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -144,12 +141,6 @@ namespace Garage2._0.Migrations
                     b.HasIndex("ParkId");
 
                     b.ToTable("ParkingSpace");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1
-                        });
                 });
 
             modelBuilder.Entity("Garage2._0.Models.Vehicle", b =>
@@ -225,19 +216,7 @@ namespace Garage2._0.Migrations
 
                     b.HasKey("Id");
 
-<<<<<<<< HEAD:Garage2.0/Migrations/20220810151836_seed.Designer.cs
-                    b.ToTable("VehicleTypeEntity");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Category = "Car",
-                            Size = 1
-                        });
-========
                     b.ToTable("VehicleType");
->>>>>>>> marlin:Garage2.0/Migrations/20220811080214_init.Designer.cs
                 });
 
             modelBuilder.Entity("Garage2._0.Models.Park", b =>
@@ -255,7 +234,9 @@ namespace Garage2._0.Migrations
                 {
                     b.HasOne("Garage2._0.Models.Park", null)
                         .WithMany("Spaces")
-                        .HasForeignKey("ParkId");
+                        .HasForeignKey("ParkId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Garage2._0.Models.Vehicle", b =>

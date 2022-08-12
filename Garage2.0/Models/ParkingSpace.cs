@@ -6,6 +6,6 @@
 
         public int ParkingNr { get; set; }
 
-        public Park? Park;
+        public Park? Park { get; set; }
     }
 }

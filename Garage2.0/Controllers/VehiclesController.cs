@@ -190,21 +190,42 @@ namespace Garage2._0.Controllers
 
             else
             {
-                var prkSpace = _context.ParkingSpace.FirstOrDefault(m => m.Park == null);
-                
+                return RedirectToAction(nameof(Details), new { id = regNr.Id }); //Vehicles/delete?id=123
+            }
+        }
+
+        [HttpPost]
+        [AcceptVerbs("GET", "POST")]
+        public IActionResult ParkVehicle(string RegNr)
+        {
+            var regNr = _context.Vehicle.FirstOrDefault(m => m.RegNr == RegNr);
+            if (regNr == null)
+            {
+                return NotFound();
+            }
+
+            else
+            {
+                var prkSpace = _context.ParkingSpace?.FirstOrDefault(m => m.Park == null);
+
+                if(prkSpace == null || regNr.Park != null)
+                {
+                    return RedirectToAction(nameof(ParkingSpaceIndex));
+                }
+
                 var park = new Park();
                 park.ArrivalTime = DateTime.Now;
                 park.VehicleId = regNr.Id;
                 park.Vehicle = regNr;
-                park.Spaces.Append(prkSpace);
+                park.Spaces.Add(prkSpace);
 
 
-                //regNr.Park = park;
+                regNr.Park = park;
 
                 _context.Add(park);
                 _context.SaveChanges();
 
-                return RedirectToAction(nameof(Details), new { id = regNr.Id }); //Vehicles/delete?id=123
+                return RedirectToAction(nameof(ParkingSpaceIndex));
             }
         }
 
@@ -213,6 +234,22 @@ namespace Garage2._0.Controllers
           return (_context.Vehicle?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
-        
+        public async Task<IActionResult> ParkingSpaceIndex()
+        {
+            var model = _context.ParkingSpace!.Select(v => new ParkingSpacesViewModel
+            {
+                Id = v.Id,
+                ParkingNr = v.ParkingNr,
+                Occupied = v.Park != null ? true : false,
+
+                ArrivalTime = v.Park != null ? v.Park.ArrivalTime : DateTime.MinValue,
+                RegNr = v.Park != null ? v.Park.Vehicle.RegNr : "---",
+                Type = v.Park != null ? v.Park.Vehicle.VehicleTypeEntity.Category : "---",
+                VehicleId = v.Park != null ? v.Park.Vehicle.Id : 0
+            });
+
+            return View(await model.ToListAsync());
+
+        }
     }
 }

@@ -66,18 +66,18 @@ namespace Garage2._0.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Member,RegNr,Color,Brand,Model,NrOfWheels,VehicleType")] CreateVehicleViewModel viewModel)
+        public async Task<IActionResult> Create( CreateVehicleViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                var vehicleTypeEntity = _context.VehicleType.FirstOrDefault(vehicleType => vehicleType.Id == viewModel.VehicleType.Id);
-                var memberEntity = _context.Member.FirstOrDefault(member => member.Id == viewModel.Member.Id);
+                var vehicleTypeEntity = _context.VehicleType.FirstOrDefault(vehicleType => vehicleType.Id == viewModel.VehicleTypeEntityId);
+                var memberEntity = _context.Member.FirstOrDefault(member => member.Id == viewModel.MemberId);
+                var vehicle = mapper.Map<Vehicle>(viewModel);
 
-                var vehicleEntity = mapper.Map<Vehicle>(viewModel);
-                vehicleEntity.VehicleTypeEntity = vehicleTypeEntity;
-                vehicleEntity.Member = memberEntity;
+                vehicle.VehicleTypeEntity = vehicleTypeEntity;
+                vehicle.Member = memberEntity;
 
-                _context.Add(vehicleEntity);
+                _context.Add(vehicle);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

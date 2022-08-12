@@ -13,6 +13,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddAutoMapper(typeof(MapperProfile));
 
 builder.Services.AddScoped<IVehicleTypeService, VehicleTypeService>();
+builder.Services.AddScoped<IMemberSelectService, MemberSelectServices>();
 
 builder.Services.AddDbContext<Garage2_0Context>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("GarageContext")));
@@ -23,12 +24,13 @@ builder.Services.AddDbContext<Garage2_0Context>(options =>
 var app = builder.Build();
 
 // Seeddata
+
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<Garage2_0Context>();
 
-    db.Database.EnsureDeleted();
-    db.Database.Migrate();
+    //db.Database.EnsureDeleted();
+    //db.Database.Migrate();
 
     try
     {
@@ -58,6 +60,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Vehicles}/{action=Index}/{id?}");
 
 app.Run();

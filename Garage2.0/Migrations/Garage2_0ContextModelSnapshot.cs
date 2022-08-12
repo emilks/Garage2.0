@@ -116,6 +116,10 @@ namespace Garage2._0.Migrations
                     b.Property<int>("ParkId")
                         .HasColumnType("int");
 
+                    b.Property<string>("SpotNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ParkId");

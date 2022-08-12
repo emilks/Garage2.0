@@ -18,12 +18,7 @@ namespace Garage2._0.Data
         public DbSet<Garage2._0.Models.ParkedVehicle>? ParkedVehicle { get; set; }
 
 
-        
-
-
         public DbSet<Garage2._0.Models.Member>? Member { get; set; }
-
-
         public DbSet<Garage2._0.Models.Vehicle>? Vehicle { get; set; }
         public DbSet<Garage2._0.Models.VehicleTypeEntity>? VehicleType { get; set; }
         public DbSet<Garage2._0.Models.ParkingSpace>? ParkingSpace{ get; set; }
@@ -37,21 +32,21 @@ namespace Garage2._0.Data
             );
             //modelBuilder.Entity<VehicleTypeEntity>().HasData(
             //    new VehicleTypeEntity { Id = 1, Category = "Car", Size = 1 }
-
-            //    //new Vehicle { Id = 1, RegNr = "AAA111", Color = "Red", Brand = "Volvo", Model = "V20", NrOfWheels = 4, MemberId = 1, VehicleTypeEntityId = 1 },
             //);
 
-            modelBuilder.Entity<Vehicle>().HasData(
-                new Vehicle { Id = 1, RegNr = "AAA111", Color = "Red", Brand = "Volvo", Model = "V20", NrOfWheels = 4, MemberId = 1, VehicleTypeEntityId = 1 },
-                new Vehicle { Id = 2, RegNr = "BBB222", Color = "Black", Brand = "Mercedes", Model = "X100", NrOfWheels = 4, MemberId = 1, VehicleTypeEntityId = 1 },
-                new Vehicle { Id = 3, RegNr = "CCC333", Color = "White", Brand = "Ferrari", Model = "E-Type", NrOfWheels = 4, MemberId = 1, VehicleTypeEntityId = 1 },
-                new Vehicle { Id = 4, RegNr = "DDD444", Color = "Blue", Brand = "Volvo", Model = "V20", NrOfWheels = 4, MemberId = 2, VehicleTypeEntityId = 1 }
-            );
+            //modelBuilder.Entity<Vehicle>().HasData(
+            //    new Vehicle { Id = 1, RegNr = "AAA111", Color = "Red", Brand = "Volvo", Model = "V20", NrOfWheels = 4, MemberId = 1, VehicleTypeEntityId = 1 },
+            //    new Vehicle { Id = 2, RegNr = "BBB222", Color = "Black", Brand = "Mercedes", Model = "X100", NrOfWheels = 4, MemberId = 1, VehicleTypeEntityId = 1 },
+            //    new Vehicle { Id = 3, RegNr = "CCC333", Color = "White", Brand = "Ferrari", Model = "E-Type", NrOfWheels = 4, MemberId = 1, VehicleTypeEntityId = 1 },
+            //    new Vehicle { Id = 4, RegNr = "DDD444", Color = "Blue", Brand = "Volvo", Model = "V20", NrOfWheels = 4, MemberId = 2, VehicleTypeEntityId = 1 }
+            //);
 
-            modelBuilder.Entity<ParkingSpace>().HasData(
-                new ParkingSpace { Id = 1, ParkingNr = 1 },
-                new ParkingSpace { Id = 2, ParkingNr = 2 }
-            );
+            //modelBuilder.Entity<ParkingSpace>().HasData(
+            //    new ParkingSpace { Id = 1, NumberSpot = "A1" },
+            //    new ParkingSpace { Id = 2, NumberSpot = "A2" },
+            //    new ParkingSpace { Id = 3, NumberSpot = "A3" },
+            //    new ParkingSpace { Id = 4, NumberSpot = "A4" }
+            //);
         }
     }
 }

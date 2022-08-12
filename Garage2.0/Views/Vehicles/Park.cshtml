@@ -1,5 +1,5 @@
 ﻿
-@model Garage2._0.Models.SearchVehicleRegNrViewModel
+@model Garage2._0.Models.SearchParkVehicleRegNrViewModel
 
 @{
     ViewData["Title"] = "Park";
@@ -25,9 +25,13 @@
             
             
             <div class="form-group ">
-                <input   type="submit" value="Park me" style="font-weight: bold" class="btn btn-success mt-2" />
+                <input   type="submit" value="Park me" style="font-weight: bold" class="btn btn-danger mt-2" />
             </div>
                    
         </form>
         </div>
  </div>
+
+ @section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

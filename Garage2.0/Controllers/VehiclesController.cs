@@ -207,24 +207,96 @@ namespace Garage2._0.Controllers
 
             else
             {
+                return RedirectToAction(nameof(Details), new { id = regNr.Id }); //Vehicles/delete?id=123
+            }
+        }
+        [HttpPost]
+        [AcceptVerbs("GET", "POST")]
+        public IActionResult ParkVehicle(string RegNr)
+        {
+            var regNr = _context.Vehicle.FirstOrDefault(m => m.RegNr == RegNr);
+            if (regNr == null)
+            {
+                return NotFound();
+            }
+
+            else
+            {
+                var prkSpace = _context.ParkingSpace?.FirstOrDefault(m => m.Park == null);
+
+                if (prkSpace == null || regNr.Park != null)
+                {
+                    return RedirectToAction(nameof(ParkingSpaceIndex));
+                }
+
                 var park = new Park();
                 park.ArrivalTime = DateTime.Now;
                 park.VehicleId = regNr.Id;
-                //park.Vehicle = regNr;
-                //park.Spaces.
+                park.Vehicle = regNr;
+                park.Spaces.Add(prkSpace);
+
 
                 regNr.Park = park;
 
                 _context.Add(park);
                 _context.SaveChanges();
 
-                return RedirectToAction(nameof(Details), new { id = regNr.Id }); //Vehicles/delete?id=123
+                return RedirectToAction(nameof(ParkingSpaceIndex));
             }
         }
 
         private bool VehicleExists(int id)
         {
           return (_context.Vehicle?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+
+        //Remote validation to check if regNr exists
+        [AcceptVerbs("GET", "POST")]
+        public IActionResult NoVehicle(string RegNr)
+        {
+            var regNr = _context.Vehicle!.FirstOrDefault(m => m.RegNr.Equals(RegNr));
+            if (regNr == null)
+            {
+                return Json(false);
+            }
+
+            else
+            {
+                return Json(true);
+            }
+        }
+
+        [AcceptVerbs("GET", "POST")]
+        public IActionResult InGarage(string RegNr)
+        {
+            var regNr = _context.Vehicle!.FirstOrDefault(m => m.RegNr.Equals(RegNr));
+            if (regNr.Park == null)
+            {
+                return Json(true);
+            }
+
+            else
+            {
+                return Json(false);
+            }
+        }
+
+        public async Task<IActionResult> ParkingSpaceIndex()
+        {
+            var model = _context.ParkingSpace!.Select(v => new ParkingSpacesViewModel
+            {
+                Id = v.Id,
+                NumberSpot = v.NumberSpot,
+                Occupied = v.Park != null ? true : false,
+
+                ArrivalTime = v.Park != null ? v.Park.ArrivalTime : DateTime.MinValue,
+                RegNr = v.Park != null ? v.Park.Vehicle.RegNr : "---",
+                Type = v.Park != null ? v.Park.Vehicle.VehicleTypeEntity.Category : "---",
+                VehicleId = v.Park != null ? v.Park.Vehicle.Id : 0
+            });
+
+            return View(await model.ToListAsync());
+
         }
 
     }

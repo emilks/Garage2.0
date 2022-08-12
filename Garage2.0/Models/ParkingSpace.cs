@@ -4,7 +4,6 @@
     {
         public int Id { get; set; }
         public string NumberSpot { get; set; }
-
         public Park? Park { get; set; }
     }
 }

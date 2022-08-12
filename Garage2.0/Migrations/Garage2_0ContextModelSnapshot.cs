@@ -17,7 +17,7 @@ namespace Garage2._0.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.7")
+                .HasAnnotation("ProductVersion", "6.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -129,10 +129,11 @@ namespace Garage2._0.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("ParkId")
-                        .HasColumnType("int");
+                    b.Property<string>("NumberSpot")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ParkingNr")
+                    b.Property<int?>("ParkId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -145,12 +146,22 @@ namespace Garage2._0.Migrations
                         new
                         {
                             Id = 1,
-                            ParkingNr = 1
+                            NumberSpot = "A1"
                         },
                         new
                         {
                             Id = 2,
-                            ParkingNr = 2
+                            NumberSpot = "A2"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            NumberSpot = "A3"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            NumberSpot = "A4"
                         });
                 });
 
@@ -260,7 +271,7 @@ namespace Garage2._0.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("VehicleTypeEntity");
+                    b.ToTable("VehicleType");
 
                     b.HasData(
                         new

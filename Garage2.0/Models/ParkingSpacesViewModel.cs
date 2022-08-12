@@ -1,10 +1,14 @@
-﻿namespace Garage2._0.Models
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
+
+namespace Garage2._0.Models
 {
     public class ParkingSpacesViewModel
     {
         public int Id { get; set; }
 
-        public int ParkingNr { get; set; }
+        [Display(Name = "Parking Space")]
+        public string NumberSpot { get; set; }
 
         public bool Occupied { get; set; }
 

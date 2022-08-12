@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Garage2._0.Migrations
 {
     [DbContext(typeof(Garage2_0Context))]
-    [Migration("20220812082232_db")]
+    [Migration("20220812093644_db")]
     partial class db
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -135,7 +135,7 @@ namespace Garage2._0.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ParkId")
+                    b.Property<int?>("ParkId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -143,6 +143,28 @@ namespace Garage2._0.Migrations
                     b.HasIndex("ParkId");
 
                     b.ToTable("ParkingSpace");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            NumberSpot = "A1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            NumberSpot = "A2"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            NumberSpot = "A3"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            NumberSpot = "A4"
+                        });
                 });
 
             modelBuilder.Entity("Garage2._0.Models.Vehicle", b =>
@@ -198,6 +220,39 @@ namespace Garage2._0.Migrations
                             NrOfWheels = 4,
                             RegNr = "AAA111",
                             VehicleTypeEntityId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Brand = "Mercedes",
+                            Color = "Black",
+                            MemberId = 1,
+                            Model = "X100",
+                            NrOfWheels = 4,
+                            RegNr = "BBB222",
+                            VehicleTypeEntityId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Brand = "Ferrari",
+                            Color = "White",
+                            MemberId = 1,
+                            Model = "E-Type",
+                            NrOfWheels = 4,
+                            RegNr = "CCC333",
+                            VehicleTypeEntityId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Brand = "Volvo",
+                            Color = "Blue",
+                            MemberId = 2,
+                            Model = "V20",
+                            NrOfWheels = 4,
+                            RegNr = "DDD444",
+                            VehicleTypeEntityId = 1
                         });
                 });
 
@@ -219,6 +274,14 @@ namespace Garage2._0.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("VehicleType");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Category = "Car",
+                            Size = 1
+                        });
                 });
 
             modelBuilder.Entity("Garage2._0.Models.Park", b =>
@@ -234,11 +297,11 @@ namespace Garage2._0.Migrations
 
             modelBuilder.Entity("Garage2._0.Models.ParkingSpace", b =>
                 {
-                    b.HasOne("Garage2._0.Models.Park", null)
+                    b.HasOne("Garage2._0.Models.Park", "Park")
                         .WithMany("Spaces")
-                        .HasForeignKey("ParkId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ParkId");
+
+                    b.Navigation("Park");
                 });
 
             modelBuilder.Entity("Garage2._0.Models.Vehicle", b =>

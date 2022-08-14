@@ -195,6 +195,34 @@ namespace Garage2._0.Controllers
             return View();
         }
 
+        public IActionResult CheckOut(int id)
+        {
+            var park = _context.Park.Include(n => n.Spaces).FirstOrDefault(m => m.Id == id);
+            var parkedVehicle = _context.Vehicle.Include(o => o.Member).FirstOrDefault(m => m.Id == park.VehicleId);
+            
+            var viewModel = new CheckOutViewModel();
+            viewModel.Id = park.Id;
+            viewModel.RegNr = parkedVehicle.RegNr;
+            viewModel.Color = parkedVehicle.Color;
+            viewModel.Brand = parkedVehicle.Brand;
+            viewModel.Model = parkedVehicle.Model;
+            viewModel.Type = _context.VehicleType.FirstOrDefault(m => m.Id == parkedVehicle.VehicleTypeEntityId).Category;
+            viewModel.NrOfWheels = parkedVehicle.NrOfWheels;
+            viewModel.ArrivalTime = park.ArrivalTime;
+            viewModel.LeaveTime = DateTime.Now;
+            viewModel.TimeParked = Math.Round((viewModel.LeaveTime - viewModel.ArrivalTime).TotalHours, 2);
+            viewModel.Price = Math.Round(viewModel.TimeParked * 10, 1);
+            viewModel.FullName = parkedVehicle.Member.FullName;
+            viewModel.PerNr = parkedVehicle.Member.PerNr;
+            viewModel.ParkSpace = park.Spaces.FirstOrDefault().NumberSpot;
+            return View(viewModel);
+        }
+
+        public IActionResult UnPark()
+        {
+            return View();
+        }
+
         [HttpPost]
         [AcceptVerbs("GET", "POST")]
         public IActionResult GetVehicle(string RegNr)
@@ -210,6 +238,7 @@ namespace Garage2._0.Controllers
                 return RedirectToAction(nameof(Details), new { id = regNr.Id }); //Vehicles/delete?id=123
             }
         }
+
         [HttpPost]
         [AcceptVerbs("GET", "POST")]
         public IActionResult ParkVehicle(string RegNr)
@@ -239,9 +268,25 @@ namespace Garage2._0.Controllers
                 regNr.Park = park;
 
                 _context.Add(park);
+                //regNr.Park = park;
                 _context.SaveChanges();
 
                 return RedirectToAction(nameof(ParkingSpaceIndex));
+            }
+        }
+
+        [HttpPost]
+        [AcceptVerbs("GET", "POST")]
+        public IActionResult CheckOutVehicle(string RegNr)
+        {
+            var regNr = _context.Vehicle.Include(n => n.Park).FirstOrDefault(m => m.RegNr == RegNr);
+            if (regNr == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return RedirectToAction(nameof(CheckOut), new { id = regNr.Park.Id });
             }
         }
 
@@ -254,10 +299,20 @@ namespace Garage2._0.Controllers
         [AcceptVerbs("GET", "POST")]
         public IActionResult NoVehicle(string RegNr)
         {
-            var regNr = _context.Vehicle!.FirstOrDefault(m => m.RegNr.Equals(RegNr));
-            if (regNr == null)
+            var selectedV = _context.Vehicle!.Include(v => v.Park).FirstOrDefault(m => m.RegNr.Equals(RegNr));
+            if(_context.ParkingSpace.FirstOrDefault(m => m.Park == null) == null)
             {
-                return Json(false);
+                return Json("The garage is full.");
+            }
+
+            if (selectedV == null)
+            {
+                return Json($"There is no Vehicle with RegNr {RegNr}.");
+                //return Json(false);
+            }
+            else if (selectedV.Park != null)
+            {
+                return Json("This vehicle is already parked in the garage.");
             }
 
             else
@@ -266,18 +321,24 @@ namespace Garage2._0.Controllers
             }
         }
 
+        //Remote validation to check if regNr exists
         [AcceptVerbs("GET", "POST")]
-        public IActionResult InGarage(string RegNr)
+        public IActionResult UnparkSearch(string RegNr)
         {
-            var regNr = _context.Vehicle!.FirstOrDefault(m => m.RegNr.Equals(RegNr));
-            if (regNr.Park == null)
+            var selectedV = _context.Vehicle!.Include(v => v.Park).FirstOrDefault(m => m.RegNr.Equals(RegNr));
+            if (selectedV == null)
             {
-                return Json(true);
+                return Json($"There is no Vehicle with RegNr {RegNr}.");
+                //return Json(false);
+            }
+            else if (selectedV.Park == null)
+            {
+                return Json("This vehicle is not parked in the garage.");
             }
 
             else
             {
-                return Json(false);
+                return Json(true);
             }
         }
 
@@ -292,11 +353,45 @@ namespace Garage2._0.Controllers
                 ArrivalTime = v.Park != null ? v.Park.ArrivalTime : DateTime.MinValue,
                 RegNr = v.Park != null ? v.Park.Vehicle.RegNr : "---",
                 Type = v.Park != null ? v.Park.Vehicle.VehicleTypeEntity.Category : "---",
+                FullName = v.Park != null ? v.Park.Vehicle.Member.FullName : "---",
                 VehicleId = v.Park != null ? v.Park.Vehicle.Id : 0
+
             });
 
             return View(await model.ToListAsync());
 
+        }
+
+        [HttpPost, ActionName("Receipt")]
+        public IActionResult Receipt(int id)
+        {
+            if (_context.Park == null)
+            {
+                return Problem("Entity set 'Garage2_0Context.Park'  is null.");
+            }
+            var parkedVehicle = _context.Park.Include(n => n.Spaces).FirstOrDefault(m => m.Id == id);
+            var vehicle = _context.Vehicle.Include(n => n.Member).Include(o => o.VehicleTypeEntity).FirstOrDefault(m => m.Id == parkedVehicle.VehicleId);
+
+            var viewModel = new ParkReceiptViewModel();
+            viewModel.Type = vehicle.VehicleTypeEntity.Category;
+            viewModel.RegNr = vehicle.RegNr;
+            viewModel.ArrivalTime = parkedVehicle.ArrivalTime;
+            viewModel.LeaveTime = DateTime.Now;
+            viewModel.TimeParked = Math.Round((viewModel.LeaveTime - viewModel.ArrivalTime).TotalHours, 2);
+            viewModel.Price = Math.Round(viewModel.TimeParked * 10, 1);
+            viewModel.FullName = vehicle.Member.FullName;
+            viewModel.PerNr = vehicle.Member.PerNr;
+
+            if (parkedVehicle != null)
+            {
+                vehicle.Park = null;
+
+                _context.Park.Remove(parkedVehicle);
+            }
+
+            _context.SaveChangesAsync();
+
+            return View(viewModel);
         }
 
     }

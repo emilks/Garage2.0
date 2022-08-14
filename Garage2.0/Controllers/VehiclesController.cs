@@ -82,7 +82,10 @@ namespace Garage2._0.Controllers
 
                 _context.Add(vehicle);
                 await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "" + vehicleTypeEntity.Category + " with registration number " + vehicle.RegNr + " parked successfully ";
+
                 return RedirectToAction(nameof(Index));
+
             }
             return View(viewModel);
         }

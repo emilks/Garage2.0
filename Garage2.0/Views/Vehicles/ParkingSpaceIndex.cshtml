@@ -3,7 +3,7 @@
 @model IEnumerable<ParkingSpacesViewModel>
 
 @{
-    ViewData["Title"] = "Park";
+    ViewData["Title"] = "Parking Spaces";
 }
 
 <h1 class="heads">Check parking details here!</h1>
@@ -29,6 +29,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Type)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -49,6 +52,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
             </td>
             <td>
                 <a asp-action="Details" asp-route-id="@item.VehicleId" class="btn btn-danger btn-sm">Details</a>

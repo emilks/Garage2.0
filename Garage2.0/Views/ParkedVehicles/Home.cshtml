@@ -17,8 +17,8 @@
                 <a asp-controller="Vehicles"asp-action="Create" type="button" class="btn btn-success me-2" style="font-weight: bold">REGISTER NEW VEHICLE</a></div>
                 <a asp-controller="Members" asp-action="Create" type="button" class="btn btn-success me-2" style="font-weight: bold">REGISTER AS A NEW MEMBER</a>
 
-                <a asp-action="Create" type="button" class="btn btn-success me-2" style="font-weight: bold">PARK</a>
-                <a asp-action="Unpark" type="button" class="btn btn-danger me-2" style="font-weight: bold">UNPARK</a>
+                <a asp-controller="Vehicles" asp-action="Park" type="button" class="btn btn-success me-2" style="font-weight: bold">PARK</a>
+                <a asp-controller="Vehicles" asp-action="Unpark" type="button" class="btn btn-danger me-2" style="font-weight: bold">UNPARK</a>
                
                 @*<div class="form-group col-6">
                     <input asp-action="Create" asp-controller="ParkedVehicles" type="submit" value="Park me" class="btn btn-primary mt-2" />

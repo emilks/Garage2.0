@@ -402,7 +402,7 @@ namespace Garage2._0.Controllers
             {
                 return Problem("Entity set 'Garage2_0Context.Park'  is null.");
             }
-            var parkedVehicle = _context.Park.FirstOrDefault(m => m.Id == id);
+            var parkedVehicle = _context.Park.Include(n => n.Spaces).FirstOrDefault(m => m.Id == id);
             //var vehicle = _context.Vehicle.FirstOrDefault(m => m.Id == parkedVehicle.VehicleId);
             
             if (parkedVehicle != null)
@@ -412,7 +412,7 @@ namespace Garage2._0.Controllers
                 _context.Park.Remove(parkedVehicle);
             }
 
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             return RedirectToAction(nameof(ParkingSpaceIndex));
         }

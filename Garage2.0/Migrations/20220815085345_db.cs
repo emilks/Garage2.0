@@ -130,38 +130,12 @@ namespace Garage2._0.Migrations
             migrationBuilder.InsertData(
                 table: "Member",
                 columns: new[] { "Id", "FirstName", "LastName", "PerNr" },
-                values: new object[,]
-                {
-                    { 1, "John", "Doe", "123456" },
-                    { 2, "Jane", "Doe", "123" }
-                });
+                values: new object[] { 1, "John", "Doe", "123456" });
 
             migrationBuilder.InsertData(
-                table: "ParkingSpace",
-                columns: new[] { "Id", "NumberSpot", "ParkId" },
-                values: new object[,]
-                {
-                    { 1, "A1", null },
-                    { 2, "A2", null },
-                    { 3, "A3", null },
-                    { 4, "A4", null }
-                });
-
-            migrationBuilder.InsertData(
-                table: "VehicleType",
-                columns: new[] { "Id", "Category", "Size" },
-                values: new object[] { 1, "Car", 1 });
-
-            migrationBuilder.InsertData(
-                table: "Vehicle",
-                columns: new[] { "Id", "Brand", "Color", "MemberId", "Model", "NrOfWheels", "RegNr", "VehicleTypeEntityId" },
-                values: new object[,]
-                {
-                    { 1, "Volvo", "Red", 1, "V20", 4, "AAA111", 1 },
-                    { 2, "Mercedes", "Black", 1, "X100", 4, "BBB222", 1 },
-                    { 3, "Ferrari", "White", 1, "E-Type", 4, "CCC333", 1 },
-                    { 4, "Volvo", "Blue", 2, "V20", 4, "DDD444", 1 }
-                });
+                table: "Member",
+                columns: new[] { "Id", "FirstName", "LastName", "PerNr" },
+                values: new object[] { 2, "Jane", "Doe", "123" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Park_VehicleId",

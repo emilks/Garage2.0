@@ -119,19 +119,6 @@ namespace Garage2._0.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ParkedVehicle");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ArrivalTime = new DateTime(2022, 8, 12, 14, 10, 14, 669, DateTimeKind.Local).AddTicks(8225),
-                            Brand = "Volvo",
-                            Color = "Red",
-                            Model = "V20",
-                            NrOfWheels = 4,
-                            RegNr = "AAA111",
-                            Type = 0
-                        });
                 });
 
             modelBuilder.Entity("Garage2._0.Models.ParkingSpace", b =>
@@ -154,28 +141,6 @@ namespace Garage2._0.Migrations
                     b.HasIndex("ParkId");
 
                     b.ToTable("ParkingSpace");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            NumberSpot = "A1"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            NumberSpot = "A2"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            NumberSpot = "A3"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            NumberSpot = "A4"
-                        });
                 });
 
             modelBuilder.Entity("Garage2._0.Models.Vehicle", b =>
@@ -219,52 +184,6 @@ namespace Garage2._0.Migrations
                     b.HasIndex("VehicleTypeEntityId");
 
                     b.ToTable("Vehicle");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Brand = "Volvo",
-                            Color = "Red",
-                            MemberId = 1,
-                            Model = "V20",
-                            NrOfWheels = 4,
-                            RegNr = "AAA111",
-                            VehicleTypeEntityId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Brand = "Mercedes",
-                            Color = "Black",
-                            MemberId = 1,
-                            Model = "X100",
-                            NrOfWheels = 4,
-                            RegNr = "BBB222",
-                            VehicleTypeEntityId = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Brand = "Ferrari",
-                            Color = "White",
-                            MemberId = 1,
-                            Model = "E-Type",
-                            NrOfWheels = 4,
-                            RegNr = "CCC333",
-                            VehicleTypeEntityId = 1
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Brand = "Volvo",
-                            Color = "Blue",
-                            MemberId = 2,
-                            Model = "V20",
-                            NrOfWheels = 4,
-                            RegNr = "DDD444",
-                            VehicleTypeEntityId = 1
-                        });
                 });
 
             modelBuilder.Entity("Garage2._0.Models.VehicleTypeEntity", b =>
@@ -285,14 +204,6 @@ namespace Garage2._0.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("VehicleType");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Category = "Car",
-                            Size = 1
-                        });
                 });
 
             modelBuilder.Entity("Garage2._0.Models.Park", b =>

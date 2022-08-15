@@ -18,21 +18,39 @@ html {
 
 .Header {
     font-size: 30px;
-    margin-top:0px;
+
+   
 
 }
 
 .container-fluid {
-    background-image: url(dark.jpg);
-    height:100px;
-    background-repeat:unset;
-    color:white;
-    text-align:center;
-    margin:auto;
+    background-image: url(gold.jpeg);
+    height: 100px;
+    background-repeat: unset;
+    color: white;
+    text-align: center;
+    justify-content: space-between;
+    padding: 8px 15px;
+    border-radius: 30px;
+    letter-spacing: 1px;
+    margin-top:0px;
+    
 }
+.icon {
+    height: 100px;
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left:125px;
+}
+  
+
+
 
 .navbar-link{
     text-align:center;
+
 }
 
 
@@ -47,9 +65,10 @@ body {
 }
 
 a:hover {
-    background-color: #808080;
-    cursor: pointer;
+    background-color: #ae9762;
+    cursor:pointer;
     text-align:center;
+    border-radius:15px;
 }
 a:active {
     text-decoration-line:underline;
@@ -59,20 +78,26 @@ a::after{
 }
 
 
-
+.nav-item{
+    margin-top:20px;
+    border:ridge;
+    border-block:thick;
+    
+}
 
 
 .containerf {
     padding: 10px;
     font-size: 17px;
-    color: #333;
+    color: #000000;
     text-align: center;
-    background-color: #808080;
+    background-color: goldenrod;
     border-top: .05rem solid #e5e5e5;
     margin-bottom: 0%;
-    position:fixed;
-    width:100%;
-    bottom:0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    border-radius: 30px;
 }
 
 .btnreg{
@@ -88,4 +113,32 @@ a::after{
 .button2 {
     
     margin-left:532px;
+}
+
+.heads{
+
+    text-align:center;
+    color:goldenrod;
+    margin-bottom:25px;
+}
+
+.btn2{
+    
+    margin-left:450px;
+    padding-inline:15px;
+    padding-block:13px;
+    font-weight:bold;
+    place-content:center;
+    text-decoration-line:none;
+    
+}
+
+.bg{
+    background-image:url(marble.jpg);
+}
+
+
+
+.regvehicle{
+   text-align:center;
 }

@@ -45,22 +45,6 @@ namespace Garage2._0.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Member");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            FirstName = "John",
-                            LastName = "Doe",
-                            PerNr = "123456"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            FirstName = "Jane",
-                            LastName = "Doe",
-                            PerNr = "123"
-                        });
                 });
 
             modelBuilder.Entity("Garage2._0.Models.Park", b =>
@@ -135,10 +119,6 @@ namespace Garage2._0.Migrations
 
                     b.Property<int?>("ParkId")
                         .HasColumnType("int");
-
-                    b.Property<string>("SpotNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

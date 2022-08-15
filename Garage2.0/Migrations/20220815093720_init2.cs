@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Garage2._0.Migrations
 {
-    public partial class db : Migration
+    public partial class init2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -126,16 +126,6 @@ namespace Garage2._0.Migrations
                         principalTable: "Park",
                         principalColumn: "Id");
                 });
-
-            migrationBuilder.InsertData(
-                table: "Member",
-                columns: new[] { "Id", "FirstName", "LastName", "PerNr" },
-                values: new object[] { 1, "John", "Doe", "123456" });
-
-            migrationBuilder.InsertData(
-                table: "Member",
-                columns: new[] { "Id", "FirstName", "LastName", "PerNr" },
-                values: new object[] { 2, "Jane", "Doe", "123" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Park_VehicleId",

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Garage2._0.Migrations
 {
     [DbContext(typeof(Garage2_0Context))]
-    [Migration("20220815092714_data")]
+    [Migration("20220815093918_data")]
     partial class data
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,22 +47,6 @@ namespace Garage2._0.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Member");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            FirstName = "John",
-                            LastName = "Doe",
-                            PerNr = "123456"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            FirstName = "Jane",
-                            LastName = "Doe",
-                            PerNr = "123"
-                        });
                 });
 
             modelBuilder.Entity("Garage2._0.Models.Park", b =>

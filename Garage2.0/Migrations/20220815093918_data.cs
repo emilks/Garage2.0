@@ -127,16 +127,6 @@ namespace Garage2._0.Migrations
                         principalColumn: "Id");
                 });
 
-            migrationBuilder.InsertData(
-                table: "Member",
-                columns: new[] { "Id", "FirstName", "LastName", "PerNr" },
-                values: new object[] { 1, "John", "Doe", "123456" });
-
-            migrationBuilder.InsertData(
-                table: "Member",
-                columns: new[] { "Id", "FirstName", "LastName", "PerNr" },
-                values: new object[] { 2, "Jane", "Doe", "123" });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Park_VehicleId",
                 table: "Park",

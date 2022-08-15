@@ -171,15 +171,27 @@ namespace Garage2._0.Controllers
                 return NotFound();
             }
 
-            var vehicle = await _context.Vehicle
-                .Include(v => v.Member)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (vehicle == null)
-            {
-                return NotFound();
-            }
+            var vehicle = _context.Vehicle.
+                Include(n => n.VehicleTypeEntity).
+                Include(o => o.Member).
+                Include(p => p.Park).
+                ThenInclude(q => q.Spaces).
+                FirstOrDefault(m => m.Id == id);
 
-            return View(vehicle);
+            var viewModel = new VehicleDeleteViewModel();
+            viewModel.Id = vehicle.Id;
+            viewModel.RegNr = vehicle.RegNr;
+            viewModel.Color = vehicle.Color;
+            viewModel.Brand = vehicle.Brand;
+            viewModel.Model = vehicle.Model;
+            viewModel.Type = vehicle.VehicleTypeEntity.Category;
+            viewModel.NrOfWheels = vehicle.NrOfWheels;
+            viewModel.Name = vehicle.Member.FullName;
+            viewModel.PerNr = vehicle.Member.PerNr;
+            viewModel.Parked = vehicle.Park != null ? true : false;
+            viewModel.ParkingSpace = vehicle.Park != null ? vehicle.Park.Spaces.FirstOrDefault().NumberSpot : null;
+
+            return View(viewModel);
         }
 
         // POST: Vehicles/Delete/5
@@ -192,9 +204,16 @@ namespace Garage2._0.Controllers
                 return Problem("Entity set 'Garage2_0Context.Vehicle'  is null.");
             }
             var vehicle = await _context.Vehicle.FindAsync(id);
+            var park = _context.Park.FirstOrDefault(m => m.VehicleId == vehicle.Id);
+            if(park != null)
+            {
+                return Problem("Can't delete a vehicle that is parked in the garage.");
+            }
+
             if (vehicle != null)
             {
-                _context.Vehicle.Remove(vehicle);
+                var testVar = vehicle.Park.ArrivalTime;
+                //_context.Vehicle.Remove(vehicle);
             }
             
             await _context.SaveChangesAsync();
@@ -365,7 +384,7 @@ namespace Garage2._0.Controllers
         {
             var model = _context.ParkingSpace!.Select(v => new ParkingSpacesViewModel
             {
-                Id = v.Id,
+                Id = v.Park != null ? v.Park.Id : 0,
                 NumberSpot = v.NumberSpot,
                 Occupied = v.Park != null ? true : false,
 

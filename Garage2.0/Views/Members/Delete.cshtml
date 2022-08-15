@@ -1,4 +1,4 @@
-﻿@model Garage2._0.Models.Member
+﻿@model Garage2._0.Models.ViewModels.MemberDeleteViewModel
 
 @{
     ViewData["Title"] = "Delete";
@@ -12,16 +12,10 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.DisplayNameFor(model => model.FullName)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LastName)
+            @Html.DisplayFor(model => model.FullName)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.PerNr)
@@ -29,11 +23,27 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.PerNr)
         </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Vehicles)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Vehicles)
+        </dd>
     </dl>
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        @if(Model.ParkedVehicles == true) { 
+            <a disabled  class="btn btn-secondary">Delete</a>
+        }
+        else
+        {
+            <input type="submit" value="Delete" class="btn btn-danger" />
+        }
+         |
         <a asp-action="Index" style="font-weight: bold" class="btn btn-success mt-2" >Back to List</a>
+        @if(Model.ParkedVehicles == true) { 
+            <div class="text-danger">Can't delete a member who owns parked vehicles</div>
+        }
     </form>
 </div>

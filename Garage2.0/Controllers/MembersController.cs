@@ -164,13 +164,25 @@ namespace Garage2._0.Controllers
             }
 
             var member = await _context.Member
+                .Include(n => n.Vehicles)
+                .ThenInclude(o => o.Park)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (member == null)
             {
                 return NotFound();
             }
 
-            return View(member);
+            var viewModel = new MemberDeleteViewModel();
+            viewModel.Id = member.Id;
+            viewModel.FullName = member.FullName;
+            viewModel.PerNr = member.PerNr;
+            viewModel.Vehicles = member.Vehicles.Count();
+            if(member.Vehicles != null) { 
+                viewModel.ParkedVehicles = member.Vehicles.Any(n => n.Park != null) ? true : false;
+            }
+
+            return View(viewModel);
         }
 
         // POST: Members/Delete/5

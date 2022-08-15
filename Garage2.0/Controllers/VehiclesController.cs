@@ -144,10 +144,25 @@ namespace Garage2._0.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
            // ViewData["MemberId"] = new SelectList(_context.Member, "Id", "Id", vehicle.MemberId);
             return View(viewModel);
         }
+        public IActionResult IsRegNrUsed(string RegNr, int Id)
+        {
+            var regNr = _context.Vehicle.FirstOrDefault(m => m.RegNr == RegNr);
+            if (regNr == null || regNr.Id == Id)
+            {
+                return Json(true);
+            }
 
+            else
+            {
+                return Json(false);
+            }
+
+
+        }
         // GET: Vehicles/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

@@ -384,7 +384,7 @@ namespace Garage2._0.Controllers
 
             if (parkedVehicle != null)
             {
-                vehicle.Park = null;
+                //vehicle.Park = null;
 
                 _context.Park.Remove(parkedVehicle);
             }
@@ -394,5 +394,27 @@ namespace Garage2._0.Controllers
             return View(viewModel);
         }
 
+        
+        [HttpPost, ActionName("ParkDelete")]
+        public IActionResult ParkDelete(int id)
+        {
+            if (_context.Park == null)
+            {
+                return Problem("Entity set 'Garage2_0Context.Park'  is null.");
+            }
+            var parkedVehicle = _context.Park.FirstOrDefault(m => m.Id == id);
+            //var vehicle = _context.Vehicle.FirstOrDefault(m => m.Id == parkedVehicle.VehicleId);
+            
+            if (parkedVehicle != null)
+            {
+                //vehicle.Park = null;
+
+                _context.Park.Remove(parkedVehicle);
+            }
+
+            _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(ParkingSpaceIndex));
+        }
     }
 }

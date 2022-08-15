@@ -9,8 +9,11 @@
 }
  <link rel="stylesheet" href="~/Design/vehicle.css" asp-append-version="true" />
 
-<h1>Register a new car</h1>
+<h1 class="heads">Happy to see you again!</h1>
+
+<h4 class="heads">Register your new vehicle in our garage</h4>
 <hr />
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
@@ -69,17 +72,19 @@
                 <input asp-for="VehicleTypeSize" class="form-control" />
                 <span asp-validation-for="VehicleTypeSize" class="text-danger"></span>
             </div>*@
-           
+           <br />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-success" />
+                 <a asp-action="Index" class=" btn btn-success style="font-weight: bold">Back to List</a>
             </div>
         </form>
     </div>
 </div>
+<br />
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+@*<div>
+    <a asp-action="Index" class=" btn btn-success style="font-weight: bold">Back to List</a>
+</div>*@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

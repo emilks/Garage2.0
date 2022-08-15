@@ -4,7 +4,7 @@
     ViewData["Title"] = "CreateMember";
 }
 
-<h1>Create Member</h1>
+<h1>Create a new member</h1>
 
 <h4>Member</h4>
 <hr />
@@ -30,15 +30,14 @@
             <br />
             
             <div class="form-group">
-                <input type="submit" value="Register as a member" class="btn btn-success" />
+                <input type="submit" value="Register" style="font-weight: bold" class="btn btn-success mt-2"/>|
+                <a asp-action="Index" style="font-weight: bold" class="btn btn-success mt-2">Back to List</a>
             </div>
         </form>
     </div>
 </div>
 <br />
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

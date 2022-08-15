@@ -1,11 +1,10 @@
-﻿
-@model Garage2._0.Models.SearchParkVehicleRegNrViewModel
+﻿@model Garage2._0.Models.SearchUnParkVehicleRegNrViewModel
 
 @{
-    ViewData["Title"] = "Park";
+    ViewData["Title"] = "Unpark";
 }
 
-<h1>Park a car</h1>
+<h1>Check Out</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -13,7 +12,7 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-controller="Vehicles" asp-action="ParkVehicle">
+        <form asp-controller="Vehicles" asp-action="CheckOutVehicle">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             
             <div class="form-group">
@@ -25,7 +24,7 @@
             
             
             <div class="form-group ">
-                <input   type="submit" value="Park me" style="font-weight: bold" class="btn btn-danger mt-2" />
+                <input   type="submit" value="Check Out" style="font-weight: bold" class="btn btn-danger mt-2" />
             </div>
                    
         </form>

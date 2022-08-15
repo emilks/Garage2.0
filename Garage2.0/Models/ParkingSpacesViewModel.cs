@@ -18,6 +18,8 @@ namespace Garage2._0.Models
 
         public string Type { get; set; }
 
+        public string FullName { get; set; }
+
         public int VehicleId { get; set; }
 
     }

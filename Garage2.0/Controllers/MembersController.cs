@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Garage2._0.Data;
 using Garage2._0.Models;
+using Garage2._0.Models.ViewModels;
 
 namespace Garage2._0.Controllers
 {
@@ -38,7 +39,21 @@ namespace Garage2._0.Controllers
 
             // Problem("Entity set 'Garage2_0Context.Member'  is null.");
         }
+        public async Task<IActionResult> Index1()
+        {
 
+            var model = _context.Member
+                .Include(m => m.Vehicles)
+                .Select(m => new MembersViewModel
+                {
+                    Id = m.Id,
+                    MemberFullName = m.FullName,
+                    MemberPerNr = m.PerNr,
+                    VehiclesCount = m.Vehicles.Count()
+                });
+
+            return View(await model.ToListAsync());
+        }
         // GET: Members/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -48,6 +63,23 @@ namespace Garage2._0.Controllers
             }
 
             var member = await _context.Member
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (member == null)
+            {
+                return NotFound();
+            }
+
+            return View(member);
+        }
+        public async Task<IActionResult> IndexDetails(int? id)
+        {
+            if (id == null || _context.Member == null)
+            {
+                return NotFound();
+            }
+
+            var member = await _context.Member
+                   .Include(m => m.Vehicles)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (member == null)
             {

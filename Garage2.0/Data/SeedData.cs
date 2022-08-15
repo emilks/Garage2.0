@@ -15,17 +15,31 @@ namespace Garage2._0.Data
             var vehicleTypes = GenerateVehicleTypes();
             await db.AddRangeAsync(vehicleTypes);
 
-            //var parkingSpaces = GenerateParkingSpaces();
-            // await db.AddRangeAsync(parkingSpaces);
+            var parkingSpaces = GetParkingSpots();
+            await db.AddRangeAsync(parkingSpaces);
           
 
             await db.SaveChangesAsync();
         }
 
-        //private static IEnumerable<VehicleTypeEntity> GetParkingSpots()
-        //{
-       
-        //}
+        private static IEnumerable<ParkingSpace> GetParkingSpots()
+        {
+            var parkingSpaces = new List<ParkingSpace>
+            {
+                new ParkingSpace{ NumberSpot = "A1"},
+                new ParkingSpace{ NumberSpot = "A2"},
+                new ParkingSpace{ NumberSpot = "A3"},
+                new ParkingSpace{ NumberSpot = "A4"},
+                new ParkingSpace{ NumberSpot = "A5"},
+                new ParkingSpace{ NumberSpot = "B1"},
+                new ParkingSpace{ NumberSpot = "B2"},
+                new ParkingSpace{ NumberSpot = "B3"},
+                new ParkingSpace{ NumberSpot = "B4"},
+                new ParkingSpace{ NumberSpot = "B5"}
+            };
+
+            return parkingSpaces;
+        }
 
         private static IEnumerable<VehicleTypeEntity> GenerateVehicleTypes()
         {

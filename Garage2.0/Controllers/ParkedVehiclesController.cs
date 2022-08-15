@@ -180,7 +180,7 @@ namespace Garage2._0.Controllers
             }
 
             else
-                    {
+            {
 
                 return RedirectToAction(nameof(Delete), new  { id = regNr.Id }); //Vehicles/delete?id=123
             }

@@ -3,9 +3,7 @@
     public class ParkingSpace
     {
         public int Id { get; set; }
-
-        public int ParkId { get; set; }
-
-        public Park Park;
+        public string NumberSpot { get; set; }
+        public Park? Park { get; set; }
     }
 }

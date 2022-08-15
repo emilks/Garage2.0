@@ -15,6 +15,6 @@ namespace Garage2._0.Models
 
         public Vehicle Vehicle { get; set; }
 
-        public IEnumerable<ParkingSpace> Spaces { get; set; } = new List<ParkingSpace>();
+        public ICollection<ParkingSpace> Spaces { get; set; } = new List<ParkingSpace>();
     }
 }

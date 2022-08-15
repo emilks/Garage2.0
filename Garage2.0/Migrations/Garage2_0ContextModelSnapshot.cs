@@ -17,7 +17,7 @@ namespace Garage2._0.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.7")
+                .HasAnnotation("ProductVersion", "6.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -129,8 +129,16 @@ namespace Garage2._0.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("NumberSpot")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("ParkId")
                         .HasColumnType("int");
+
+                    b.Property<string>("SpotNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -141,7 +149,23 @@ namespace Garage2._0.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1
+                            Id = 1,
+                            NumberSpot = "A1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            NumberSpot = "A2"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            NumberSpot = "A3"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            NumberSpot = "A4"
                         });
                 });
 
@@ -198,6 +222,39 @@ namespace Garage2._0.Migrations
                             NrOfWheels = 4,
                             RegNr = "AAA111",
                             VehicleTypeEntityId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Brand = "Mercedes",
+                            Color = "Black",
+                            MemberId = 1,
+                            Model = "X100",
+                            NrOfWheels = 4,
+                            RegNr = "BBB222",
+                            VehicleTypeEntityId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Brand = "Ferrari",
+                            Color = "White",
+                            MemberId = 1,
+                            Model = "E-Type",
+                            NrOfWheels = 4,
+                            RegNr = "CCC333",
+                            VehicleTypeEntityId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Brand = "Volvo",
+                            Color = "Blue",
+                            MemberId = 2,
+                            Model = "V20",
+                            NrOfWheels = 4,
+                            RegNr = "DDD444",
+                            VehicleTypeEntityId = 1
                         });
                 });
 
@@ -218,7 +275,7 @@ namespace Garage2._0.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("VehicleTypeEntity");
+                    b.ToTable("VehicleType");
 
                     b.HasData(
                         new
@@ -242,9 +299,11 @@ namespace Garage2._0.Migrations
 
             modelBuilder.Entity("Garage2._0.Models.ParkingSpace", b =>
                 {
-                    b.HasOne("Garage2._0.Models.Park", null)
+                    b.HasOne("Garage2._0.Models.Park", "Park")
                         .WithMany("Spaces")
                         .HasForeignKey("ParkId");
+
+                    b.Navigation("Park");
                 });
 
             modelBuilder.Entity("Garage2._0.Models.Vehicle", b =>

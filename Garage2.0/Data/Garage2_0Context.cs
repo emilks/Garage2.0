@@ -42,10 +42,10 @@ namespace Garage2._0.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Member>().HasData(
-                new Member { Id = 1, FirstName = "John", LastName = "Doe", PerNr = "123456" },
-                new Member { Id = 2, FirstName = "Jane", LastName = "Doe", PerNr = "123" }
-            );
+            //modelBuilder.Entity<Member>().HasData(
+            //    new Member { Id = 1, FirstName = "John", LastName = "Doe", PerNr = "123456" },
+            //    new Member { Id = 2, FirstName = "Jane", LastName = "Doe", PerNr = "123" }
+            //);
             //modelBuilder.Entity<VehicleTypeEntity>().HasData(
             //    new VehicleTypeEntity { Id = 1, Category = "Car", Size = 1 }
             //);

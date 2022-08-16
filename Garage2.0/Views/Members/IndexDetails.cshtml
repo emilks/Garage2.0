@@ -4,6 +4,7 @@
     ViewData["Title"] = "Details";
     var name = Html.DisplayFor(model => model.FullName);
     var title = "Number of Wehicles";
+    int nrOfVehicles =  Model.Vehicles.Count();
 }
 
 <h1>Details</h1>
@@ -16,20 +17,25 @@
         <dt class="col-sm-2">
             @title
         </dt>
-         <th>
-                @*@Html.DisplayNameFor(model => model.Vehicles.Count())*@
-          </th>
-        <dd class="col-sm-10">
+          <dd class = "col-sm-10">
+               @nrOfVehicles
+          </dd>
+
             @foreach(var vehicle in Model.Vehicles)
             {  
-            <dt class="col-sm-2">
-            @vehicle.Brand<br/>
-             </dt>
-             <td>
+                
+         <dt class="col-sm-2">
+            @vehicle.Brand 
+        </dt>
+        
+        
+             <dd class = "col-sm-10">
                 @vehicle.RegNr<br/>
-                </td>
+             
+            </dd>
             }
-        </dd>
+                   
+        
     </dl>
 </div>
 <div>

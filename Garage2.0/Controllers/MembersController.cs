@@ -22,30 +22,43 @@ namespace Garage2._0.Controllers
             _context = context;
         }
 
-        // GET: Members
-        //public async Task<IActionResult> Index()
-        //{
-        //      return _context.Member != null ? 
-        //                  View(await _context.Member.ToListAsync()) :
-        //                  Problem("Entity set 'Garage2_0Context.Member'  is null.");
-        //}
 
-        public async Task<IActionResult> Index()
+
+        public async Task<IActionResult> Filter(string pnr)
         {
-            var orderdMembers = _context.Member
-                .OrderBy(m => m.FirstName.Substring(0, 1));
-                
-            
-            return View(await orderdMembers.ToListAsync());
-        
+            if (pnr == null )
+            {
+                return NotFound();
+            }
 
-            // Problem("Entity set 'Garage2_0Context.Member'  is null.");
+            var member = await _context.Member
+
+                
+                 .Select(m => new MembersViewModel
+                 {
+                     Id = m.Id,
+                     MemberFullName = m.FullName,
+                     MemberPerNr = m.PerNr,
+                     VehiclesCount = m.Vehicles.Count()
+                 })
+                 .FirstOrDefaultAsync(m => m.MemberPerNr == pnr);
+
+            var model = new List<MembersViewModel> { member };
+
+            return View(nameof(Index1), model);
+
+
+           // return View(await model.ToListAsync());
+
+
+
         }
         public async Task<IActionResult> Index1()
         {
 
             var model = _context.Member
                 .Include(m => m.Vehicles)
+                 .OrderBy(m => m.FirstName.Substring(0, 1))
                 .Select(m => new MembersViewModel
                 {
                     Id = m.Id,
@@ -179,7 +192,7 @@ namespace Garage2._0.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index1));
             }
             return View(member);
         }
@@ -193,13 +206,25 @@ namespace Garage2._0.Controllers
             }
 
             var member = await _context.Member
+                .Include(n => n.Vehicles)
+                .ThenInclude(o => o.Park)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (member == null)
             {
                 return NotFound();
             }
 
-            return View(member);
+            var viewModel = new MemberDeleteViewModel();
+            viewModel.Id = member.Id;
+            viewModel.FullName = member.FullName;
+            viewModel.PerNr = member.PerNr;
+            viewModel.Vehicles = member.Vehicles.Count();
+            if(member.Vehicles != null) { 
+                viewModel.ParkedVehicles = member.Vehicles.Any(n => n.Park != null) ? true : false;
+            }
+
+            return View(viewModel);
         }
 
         // POST: Members/Delete/5
@@ -218,7 +243,7 @@ namespace Garage2._0.Controllers
             }
             
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index1));
         }
 
         private bool MemberExists(int id)

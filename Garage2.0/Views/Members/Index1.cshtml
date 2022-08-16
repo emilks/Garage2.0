@@ -4,10 +4,21 @@
     ViewData["Title"] = "Members";
 }
 
-<h1>Members</h1>
 
+<h1 class="heads">Overview of existing members</h1>
+<form>
+    <div class="input-group mb-3 mt-3">
+        <input type="text" class="form-control" name="pnr" placeholder="Search by Social Security Number ..." />
+        
+        <div class="input-group-append">
+            <button asp-action="Filter" asp-controller="Members" type="submit" class="btn btn-primary ms-2"><i class="fa fa-search">&emsp;Search</i></button>
+        </div>
+         
+    
+    </div>
+</form>
 <p>
-    <a asp-action="Create">Create Member</a>
+    <a asp-action="Create" class="btn2 btn-success me-2 " style="font-weight:bold " >Create New Member</a>
 </p>
 <table class="table">
     <thead>

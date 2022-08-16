@@ -12,12 +12,15 @@ namespace Garage2._0.Models
 
         public bool Occupied { get; set; }
 
+        [Display(Name = "Arrival Time")]
         public DateTime ArrivalTime { get; set; }
 
+        [Display(Name = "Registration Number")]
         public string? RegNr { get; set; }
 
         public string Type { get; set; }
 
+        [Display(Name = "Owner")]
         public string FullName { get; set; }
 
         public int VehicleId { get; set; }

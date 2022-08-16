@@ -9,7 +9,7 @@
 <h1 class="heads">Check parking details here!</h1>
 
 <p>
-    <a asp-action="Create" class="btn2 btn-success style="font-weight: bold">Create New</a>
+    <a asp-action="Park" class="btn2 btn-success style="font-weight: bold">Park a vehicle</a>
 </p>
 <form method="get" asp-action="Filter" asp-controller="Vehicles" >
     <div class="input-group mb-3 mt-3">
@@ -73,7 +73,11 @@
                 @Html.DisplayFor(modelItem => item.FullName)
             </td>
             <td>
+                @if(item.Occupied == true)
+                {    
                 <a asp-action="Details" asp-route-id="@item.VehicleId" class="btn btn-danger btn-sm">Details</a>
+                <a asp-action="CheckOut" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Check Out</a>
+                }
             </td>
         </tr>
 }

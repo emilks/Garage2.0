@@ -6,13 +6,13 @@ namespace Garage2._0.Models.ViewModels
     {
         public int Id { get; set; }
 
-        [DisplayName("Name Of Owner")]
+        [DisplayName("Member")]
         public string MemberFullName { get; set; }
 
-        [DisplayName("ID")]
+        [DisplayName("Social Security Number")]
         public string MemberPerNr { get; set; }
 
-        [DisplayName("Count Of Vehicle")]
+        [DisplayName("Number Of Vehicle")]
 
         public int VehiclesCount { get; set; }
 

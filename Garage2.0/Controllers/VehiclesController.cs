@@ -44,17 +44,28 @@ namespace Garage2._0.Controllers
                 return NotFound();
             }
 
-            var vehicle = await mapper.ProjectTo<VehicleDetailsViewModel>(_context.Vehicle)
-                                        .FirstOrDefaultAsync(s => s.Id == id);
-            //var vehicle = await _context.Vehicle
-            //    .Include(v => v.Member)
-            //    .FirstOrDefaultAsync(m => m.Id == id);
+            //var vehicle = await mapper.ProjectTo<VehicleDetailsViewModel>(_context.Vehicle)
+            //                            .FirstOrDefaultAsync(s => s.Id == id);
+            var vehicle = _context.Vehicle.Include(n => n.VehicleTypeEntity).Include(o => o.Member).FirstOrDefault(m => m.Id == id);
             if (vehicle == null)
             {
                 return NotFound();
             }
+            var viewModel = new VehicleDetailsViewModel();
+            viewModel.Id = vehicle.Id;
+            viewModel.FullName = vehicle.Member.FullName;
+            viewModel.PerNr = vehicle.Member.PerNr;
+            viewModel.RegNr = vehicle.RegNr;
+            viewModel.Color = vehicle.Color;
+            viewModel.Brand = vehicle.Brand;
+            viewModel.Model = vehicle.Model;
+            viewModel.NrOfWheels = vehicle.NrOfWheels;
+            viewModel.Type = vehicle.VehicleTypeEntity.Category;
+            //var vehicle = await _context.Vehicle
+            //    .Include(v => v.Member)
+            //    .FirstOrDefaultAsync(m => m.Id == id);
 
-            return View(vehicle);
+            return View(viewModel);
         }
 
         // GET: Vehicles/Create
@@ -212,8 +223,7 @@ namespace Garage2._0.Controllers
 
             if (vehicle != null)
             {
-                var testVar = vehicle.Park.ArrivalTime;
-                //_context.Vehicle.Remove(vehicle);
+                _context.Vehicle.Remove(vehicle);
             }
             
             await _context.SaveChangesAsync();

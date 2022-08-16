@@ -37,7 +37,7 @@ namespace Garage2._0.Data
         public DbSet<Garage2._0.Models.Vehicle>? Vehicle { get; set; }
         public DbSet<Garage2._0.Models.VehicleTypeEntity>? VehicleType { get; set; }
         public DbSet<Garage2._0.Models.Park>? Park { get; set; }
-        public DbSet<Garage2._0.Models.ParkingSpace>? ParkingSpace{ get; set; }
+        public DbSet<Garage2._0.Models.ParkingSpace>? ParkingSpace { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

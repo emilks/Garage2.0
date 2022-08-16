@@ -1,5 +1,5 @@
-﻿@using Garage2._0.Models
-
+﻿@using Garage2._0.Models.ViewModels
+@inject IVehicleTypeService service
 @model IEnumerable<ParkingSpacesViewModel>
 
 @{
@@ -11,6 +11,22 @@
 <p>
     <a asp-action="Create" class="btn2 btn-success style="font-weight: bold">Create New</a>
 </p>
+<form method="get" asp-action="Filter" asp-controller="Vehicles" >
+    <div class="input-group mb-3 mt-3">
+        <input type="text" class="form-control" name="regNr" placeholder="Search on Registration Number..." />
+               <div class="input-group-append">
+
+           <select class="form-control" name="type" asp-items="@await service.GetVehiclesType()">
+
+       <option selected="selected" value="">Please select</option>
+            </select>
+            </div>
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-primary ms-2"><i class="fa fa-search">&emsp;Search</i></button>
+        </div>
+      </div>   
+   
+</form>
 <table class="table">
     <thead>
         <tr>
@@ -63,3 +79,4 @@
 }
     </tbody>
 </table>
+

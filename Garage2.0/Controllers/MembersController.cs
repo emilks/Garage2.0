@@ -15,6 +15,8 @@ namespace Garage2._0.Controllers
     {
         private readonly Garage2_0Context _context;
 
+        public string ErrorMessage { get; private set; }
+
         public MembersController(Garage2_0Context context)
         {
             _context = context;
@@ -119,7 +121,9 @@ namespace Garage2._0.Controllers
                     member.IsUnderage = false;
                 }
 
-                
+              
+
+
                 _context.Add(member);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index1) , member);

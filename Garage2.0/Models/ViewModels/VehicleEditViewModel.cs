@@ -6,6 +6,8 @@ namespace Garage2._0.Models.ViewModels
     public class VehicleEditViewModel
     {
         public int Id { get; set; }
+        public int MemberId { get; set; }
+
         public string RegNr { get; set; }
         public string Color { get; set; }
         public string Brand { get; set; }
@@ -14,7 +16,7 @@ namespace Garage2._0.Models.ViewModels
         [Display(Name = "Number of Wheels")]
         [Range(0, double.MaxValue, ErrorMessage = "The value must be greater than 0")]
         public int NrOfWheels { get; set; }
-        public string Category { get; set; }
+        public int VehicleTypeEntityId { get; set; }
         public int Size { get; set; }
     }
 }

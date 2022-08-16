@@ -178,8 +178,9 @@ namespace Garage2._0.Controllers
                        .FirstOrDefaultAsync(s => s.Id == id);
 
                     mapper.Map(viewModel, vehicle);
-                    _context.Update(viewModel);
+                    _context.Update(vehicle);
                     await _context.SaveChangesAsync();
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -192,6 +193,8 @@ namespace Garage2._0.Controllers
                         throw;
                     }
                 }
+                TempData["SuccessMessage"] = " Vehicle Edited Successfully ";
+
                 return RedirectToAction(nameof(Index));
             }
 

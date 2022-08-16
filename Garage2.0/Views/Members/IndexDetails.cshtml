@@ -2,34 +2,32 @@
 
 @{
     ViewData["Title"] = "Details";
+    var name = Html.DisplayFor(model => model.FullName);
+    var title = "Number of Wehicles";
 }
 
 <h1>Details</h1>
 
 <div>
-    <h4>Member</h4>
+    <h4>@name</h4>
     <hr />
     <dl class="row">
+  
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.FullName)
+            @title
         </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.FullName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PerNr)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PerNr)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Vehicles)
-        </dt>
-    
+         <th>
+                @*@Html.DisplayNameFor(model => model.Vehicles.Count())*@
+          </th>
         <dd class="col-sm-10">
             @foreach(var vehicle in Model.Vehicles)
-            {
+            {  
+            <dt class="col-sm-2">
+            @vehicle.Brand<br/>
+             </dt>
+             <td>
                 @vehicle.RegNr<br/>
+                </td>
             }
         </dd>
     </dl>

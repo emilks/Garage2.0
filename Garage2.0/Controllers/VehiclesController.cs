@@ -11,19 +11,19 @@ using AutoMapper;
 using Garage2._0.Models.ViewModels;
 using Bogus;
 
+
+
 namespace Garage2._0.Controllers
 {
     public class VehiclesController : Controller
     {
         private readonly Garage2_0Context _context;
         private readonly IMapper mapper;
-        
 
         public VehiclesController(Garage2_0Context context, IMapper mapper)
         {
             _context = context;
             this.mapper = mapper;
-
         }
 
         // GET: Vehicles
@@ -100,6 +100,45 @@ namespace Garage2._0.Controllers
             }
             return View(viewModel);
         }
+        //Search by regNr
+
+        public async Task<IActionResult> Filter(string regNr, int? type, ParkingSpacesViewModel vM)
+        {
+            var vehicles = string.IsNullOrWhiteSpace(regNr) ?
+                                   _context.ParkingSpace :
+                                  _context.ParkingSpace
+                                  .Include(n => n.Park)
+                                  .ThenInclude(o => o.Vehicle)
+                                  .ThenInclude(v => v.Member)
+                                  .Where(m => m.Park.Vehicle.RegNr
+                                  .StartsWith(regNr));
+
+
+            vehicles = type == null ?
+                             vehicles :
+                             vehicles.Where(m => m.Park.Vehicle.VehicleTypeEntityId == type);
+
+
+            var viewModel = vehicles.Select(p => new ParkingSpacesViewModel
+            {
+                RegNr = p.Park.Vehicle.RegNr,
+                Id = p.Id,
+                ArrivalTime = p.Park.ArrivalTime,
+                Type = p.Park.Vehicle.VehicleTypeEntity.Category,
+                FullName = p.Park.Vehicle.Member.FullName,
+                NumberSpot = p.NumberSpot,
+                VehicleId = p.Park.Vehicle.Id,
+                Occupied = true
+               
+            });
+
+            return View(nameof(ParkingSpaceIndex), viewModel);
+
+        }
+
+
+
+
 
         // GET: Vehicles/Edit/5
         public async Task<IActionResult> Edit(int? id)

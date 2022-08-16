@@ -14,8 +14,16 @@ public class VehicleTypeService : IVehicleTypeService
         _context = context;
     }
 
-    public async Task<IEnumerable<SelectListItem>> GenerateVehicleTypes(int? selectedId)
-        => await _context.VehicleType.Select(vehicleType => new SelectListItem() { Text = vehicleType.Category, Value = vehicleType.Id.ToString(), Selected = vehicleType.Id == selectedId }).ToListAsync();
+    public async Task<IEnumerable<SelectListItem>> GetVehiclesType()
+    {
+        return await _context.VehicleType
+                    .Select(m => new SelectListItem
+                    {
+                        Text = m.Category.ToString(),
+                        Value = m.Id.ToString()
+                    })
+                    .ToListAsync();
+    }
 
 
 

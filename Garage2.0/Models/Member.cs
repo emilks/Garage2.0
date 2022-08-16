@@ -5,7 +5,8 @@ namespace Garage2._0.Models
 {
     public class Member
     {
-        
+        public int age;
+
         public int Id { get; set; }
 
         [Required]
@@ -17,13 +18,19 @@ namespace Garage2._0.Models
 
         public string FullName => $"{FirstName} {LastName}";
 
-        [Required]
-        [Display(Name = "Person Nummer")]
-        //[StringLength(12, ErrorMessage = "The personal registration number must be exactly length 12.", MinimumLength = 12)]
-        //[Remote(action: "IsPerNrUsed", controller: "Members", ErrorMessage = "The personal registration number is already in use.", AdditionalFields = nameof(Id))]
-        //[Remote(action: "PerNrFormat", controller: "Member", ErrorMessage = "", AdditionalFields = nameof(Id))]
+        [Required(ErrorMessage = "Please enter your social security number!")]
+        [Display(Name = "Personal Number")]
+        [Remote(action: "IsPerNrUsed", controller: "Members", ErrorMessage = "This ID number is already in use", AdditionalFields = nameof(Id))]
+        [MaxLength(13)]
+        [MinLength(10)]
+        [RegularExpression("[0-9]{6}-[0-9]{4}",ErrorMessage = "Invalid social security number!")]
         public string PerNr { get; set; }
+        public DateTime DateOfBirth { get; set; }
+
+        public  int Year { get; set; }
+        public bool IsUnderage { get; set; }
 
         public IEnumerable<Vehicle> Vehicles { get; set; } = new List<Vehicle>();
+        
     }
 }

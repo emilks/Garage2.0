@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Garage2._0.Migrations
 {
-    public partial class init2 : Migration
+    public partial class n : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -17,7 +17,10 @@ namespace Garage2._0.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PerNr = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    PerNr = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Year = table.Column<int>(type: "int", nullable: false),
+                    IsUnderage = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

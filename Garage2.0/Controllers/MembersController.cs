@@ -21,11 +21,23 @@ namespace Garage2._0.Controllers
         }
 
         // GET: Members
+        //public async Task<IActionResult> Index()
+        //{
+        //      return _context.Member != null ? 
+        //                  View(await _context.Member.ToListAsync()) :
+        //                  Problem("Entity set 'Garage2_0Context.Member'  is null.");
+        //}
+
         public async Task<IActionResult> Index()
         {
-              return _context.Member != null ? 
-                          View(await _context.Member.ToListAsync()) :
-                          Problem("Entity set 'Garage2_0Context.Member'  is null.");
+            var orderdMembers = _context.Member
+                .OrderBy(m => m.FirstName.Substring(0, 1));
+                
+            
+            return View(await orderdMembers.ToListAsync());
+        
+
+            // Problem("Entity set 'Garage2_0Context.Member'  is null.");
         }
         public async Task<IActionResult> Index1()
         {
@@ -97,13 +109,26 @@ namespace Garage2._0.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                if (member.age < 18)
+                {
+                    member.IsUnderage = true;
+                }
+                else
+                {
+                    member.IsUnderage = false;
+                }
+
+                
                 _context.Add(member);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index1) , member);
+                //return View("IsValid", member);
             }
             return View(member);
         }
 
+       
         // GET: Members/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -247,5 +272,25 @@ namespace Garage2._0.Controllers
             //TODO
             return Json(true);
         }
+
+        //public async Task<IActionResult> CreateMember(int id)
+        //{
+        //    var member = _context.Member.Find(id);
+            //var type = await _context.ParkedVehicle
+            //    .Include(c => c.Type).Where(v => v.Id == member.Id).ToListAsync();
+
+
+            //member.Vehicles = type;
+
+            //if (member.age < 18)
+            //{
+            //    member.IsUnderage = true;
+            //}
+            //else
+            //{
+            //    member.IsUnderage = false;
+            //}
+            //return View("MemberCheckIn", member);
+        //}
     }
 }

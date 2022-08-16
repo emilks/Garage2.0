@@ -249,7 +249,7 @@ namespace Garage2._0.Controllers
             var parkedVehicle = _context.Vehicle.Include(o => o.Member).FirstOrDefault(m => m.Id == park.VehicleId);
             
             var viewModel = new CheckOutViewModel();
-            viewModel.Id = park.Id;
+            viewModel.Id =  park.Id;
             viewModel.RegNr = parkedVehicle.RegNr;
             viewModel.Color = parkedVehicle.Color;
             viewModel.Brand = parkedVehicle.Brand;
